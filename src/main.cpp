@@ -6,9 +6,12 @@ Juego Tar Killer
 
 #include "raylib.h"
 #include "raymath.h"
+#include "Screens/ScreenManager.h"
 
 int main()
 {
+    ScreenManager::Run();
+
     const float screenWidth = 800;
     const float screenHeight = 450;
 
