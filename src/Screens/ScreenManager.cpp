@@ -1,5 +1,7 @@
 #include "ScreenManager.h"
 
+#include "ScreenGame.h"
+
 #include <raylib.h>
 
 #include <cstdlib>
@@ -10,7 +12,7 @@ namespace ScreenManager
 	
 	void Init(ScreenOptions& currentScreen);
 
-	void Update(ScreenOptions& currentScreen);
+	void Update(ScreenOptions& currentScreen, float deltaTime);
 
 	void Draw(ScreenOptions& currentScreen);
 
@@ -21,15 +23,18 @@ namespace ScreenManager
 
 		currentScreen = ScreenOptions::Play;
 
+		Game::Init();
+
 	}
 
-	void Update(ScreenOptions& currentScreen)
+	void Update(ScreenOptions& currentScreen, float deltaTime)
 	{
 		switch (currentScreen)
 		{
 		case ScreenManager::ScreenOptions::Menu:
 			break;
 		case ScreenManager::ScreenOptions::Play:
+			Game::Update(deltaTime);
 			break;
 		case ScreenManager::ScreenOptions::Settings:
 			break;
@@ -50,11 +55,15 @@ namespace ScreenManager
 
 	void Draw(ScreenOptions& currentScreen)
 	{
+		BeginDrawing();
+		ClearBackground(WHITE);
+
 		switch (currentScreen)
 		{
 		case ScreenManager::ScreenOptions::Menu:
 			break;
 		case ScreenManager::ScreenOptions::Play:
+			Game::Draw();
 			break;
 		case ScreenManager::ScreenOptions::Settings:
 			break;
@@ -71,6 +80,8 @@ namespace ScreenManager
 		default:
 			break;
 		}
+
+		EndDrawing();
 	}
 
 	void Run()
@@ -89,7 +100,7 @@ namespace ScreenManager
 			deltaTime = GetFrameTime();
 
 			//Update (actualizacion)
-			Update(currentScreen);
+			Update(currentScreen, deltaTime);
 
 			//Draw (dibujado)
 			Draw(currentScreen);

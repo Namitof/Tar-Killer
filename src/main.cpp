@@ -12,7 +12,7 @@ int main()
 {
     ScreenManager::Run();
 
-    const float screenWidth = 800;
+    /*const float screenWidth = 800;
     const float screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "Nueva Ventana");
@@ -42,7 +42,7 @@ int main()
         EndDrawing();
     }
 
-    CloseWindow();
+    CloseWindow();*/
 
     /*const float screenWidth = 800;
     const float screenHeight = 450;

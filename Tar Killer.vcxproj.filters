@@ -13,10 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de origen\Screens">
+      <UniqueIdentifier>{7642d44c-5363-44cf-a880-40509042aa4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objects">
+      <UniqueIdentifier>{acd6d141-061c-4fc2-bf3d-c5bd96171830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Screens">
+      <UniqueIdentifier>{22ad0bf2-2e4f-4047-8017-a470600b8a90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects">
+      <UniqueIdentifier>{3190e87d-414e-416f-b7aa-dfeeca06fcfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screens\ScreenManager.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\ScreenGame.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\Player.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Screens\ScreenManager.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\ScreenGame.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Player.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
