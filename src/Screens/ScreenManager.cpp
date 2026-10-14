@@ -86,7 +86,7 @@ namespace ScreenManager
 
 	void Run()
 	{
-		srand(time(NULL));
+		srand(static_cast<unsigned int>(time(NULL)));
 
 		ScreenOptions currentScreen = ScreenOptions::None;
 		float deltaTime = 0.0f;

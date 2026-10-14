@@ -14,11 +14,16 @@ namespace Game
 
 	void Update(float deltaTime)
 	{
-		Player::Move(player, deltaTime);
+		Player::Update(player, deltaTime);
 
-		if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 		{
-			Player::Update(player, deltaTime);
+			Player::Accelerate(player);
+
+		}
+		else
+		{
+			Player::SlowDown(player);
 		}
 	}
 

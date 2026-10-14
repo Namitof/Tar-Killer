@@ -17,50 +17,52 @@ namespace Player
 		player.direction.y = 0.0f;
 
 		player.radius = PLAYER_RADIUS;
-		player.speed = 0.0f;
-	}
 
-	void Update(Player& player, float deltaTime)
-	{
-		player.direction.x = GetMouseX() - player.pos.x;
-		player.direction.y = GetMouseY() - player.pos.y;
-
-		float magnitude = sqrt((player.direction.x * player.direction.x) + (player.direction.y * player.direction.y));
-
-		magnitude = abs(magnitude);
-
-		if (magnitude < PLAYER_MIN_DISTANCE)
-		{
-			magnitude = PLAYER_MIN_DISTANCE;
-		}
-		else if (magnitude > PLAYER_MAX_DISTANCE)
-		{
-			magnitude = PLAYER_MAX_DISTANCE;
-		}
-
-		player.speed = PLAYER_MIN_SPEED + ((magnitude/PLAYER_MAX_DISTANCE) * (PLAYER_MAX_SPEED - PLAYER_MIN_SPEED));
-
-		player.direction = Vector2Normalize(player.direction);
-
-	}
-
-	void Draw(Player player)
-	{
-		DrawCircle(player.pos.x, player.pos.y, player.radius, RED);
+		player.maxSpeed = PLAYER_MAX_SPEED;
+		player.currentSpeed = 0.0f;
+		player.acceleration = PLAYER_ACCELERATION;
 	}
 
 	void Move(Player& player, float deltaTime)
 	{
-		player.pos.x += player.direction.x * deltaTime * player.speed;
-		player.pos.y += player.direction.y * deltaTime * player.speed;
+		player.pos.x += player.direction.x * deltaTime * player.currentSpeed;
+		player.pos.y += player.direction.y * deltaTime * player.currentSpeed;
+	}
 
-		player.speed -= 0.005f;
+	void Accelerate(Player& player)
+	{
+		player.currentSpeed += player.acceleration;
 
-		if (player.speed < 0)
+		if (player.currentSpeed > player.maxSpeed)
 		{
-			player.speed = 0;
+			player.currentSpeed = player.maxSpeed;
 		}
+	}
 
+	void SlowDown(Player& player)
+	{
+		player.currentSpeed -= player.acceleration;
+
+		if (player.currentSpeed < 0)
+		{
+			player.currentSpeed = 0;
+		}
+	}
+
+	void Update(Player& player, float deltaTime)
+	{
+		//Actualizo vector direccion
+		player.direction.x = static_cast<float>(GetMouseX()) - player.pos.x;
+		player.direction.y = static_cast<float>(GetMouseY()) - player.pos.y;
+		player.direction = Vector2Normalize(player.direction);
+
+		Move(player, deltaTime);
+		
+	}
+
+	void Draw(Player player)
+	{
+		DrawCircleV(player.pos, player.radius, RED);
 	}
 
 }
