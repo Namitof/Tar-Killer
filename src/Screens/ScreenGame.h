@@ -7,8 +7,9 @@ namespace Game
 
 	void Init();
 
-	void Update(float deltaTime);
+	void Update(float deltaTime, int width, int height);
 
 	void Draw();
 
+	void Delete();
 }

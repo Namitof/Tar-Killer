@@ -1,5 +1,7 @@
 #include "ScreenGame.h"
+
 #include "../Objects/Player.h"
+#include "../Objects/ColisionManager.h"
 
 #include <raylib.h>
 
@@ -12,23 +14,20 @@ namespace Game
 		Player::Init(player);
 	}
 
-	void Update(float deltaTime)
+	void Update(float deltaTime, int width, int height)
 	{
 		Player::Update(player, deltaTime);
-
-		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
-		{
-			Player::Accelerate(player);
-
-		}
-		else
-		{
-			Player::SlowDown(player);
-		}
+		ColisionManager::CheckColisions(player, width, height);
+		
 	}
 
 	void Draw()
 	{
 		Player::Draw(player);
+	}
+
+	void Delete()
+	{
+
 	}
 }
