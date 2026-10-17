@@ -16,6 +16,9 @@ namespace ScreenManager
 
 	void Draw(ScreenOptions& currentScreen);
 
+	void Delete();
+
+
 
 	void Init(ScreenOptions& currentScreen)
 	{
@@ -34,7 +37,7 @@ namespace ScreenManager
 		case ScreenManager::ScreenOptions::Menu:
 			break;
 		case ScreenManager::ScreenOptions::Play:
-			Game::Update(deltaTime);
+			Game::Update(deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
 			break;
 		case ScreenManager::ScreenOptions::Settings:
 			break;
@@ -84,6 +87,13 @@ namespace ScreenManager
 		EndDrawing();
 	}
 
+	void Delete()
+	{
+		//Delete a todas las escenas
+
+
+	}
+
 	void Run()
 	{
 		srand(static_cast<unsigned int>(time(NULL)));
@@ -105,6 +115,8 @@ namespace ScreenManager
 			//Draw (dibujado)
 			Draw(currentScreen);
 		}
+
+		Delete();
 
 		//Cierre
 		CloseWindow();
