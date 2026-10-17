@@ -6,37 +6,44 @@
 namespace Player
 {
     const float PLAYER_RADIUS = 50.0f;
-    const float PLAYER_SPEED = 100.0f;
 
-    const float PLAYER_MIN_SPEED = 50.0f;
     const float PLAYER_MAX_SPEED = 300.0f;
 
-    const float PLAYER_MIN_DISTANCE = 1.0f;
-    const float PLAYER_MAX_DISTANCE = 500.0f;
-
-    const float PLAYER_ACCELERATION = 0.05f;
+    const int PLAYER_LIFES = 3;
 
 	struct Player
 	{
         Vector2 pos;
+
         Vector2 direction;
+
         float radius;
+
+        //Speed
+        Vector2 speed;
+
         float maxSpeed;
-        float currentSpeed;
-        float acceleration;
+
+        //Se mueve el pivote al punto de origen del rectangulo
+        Rectangle spriteRectangle;
+        Vector2 pivot;
+
+        float rotation;
+
+        //Estadisticas de juego
+        int score;
+        int lifes;
 	};
 
     void Init(Player& player);
 
     void Move(Player& player, float deltaTime);
 
-    void Accelerate(Player& player);
-
-    void SlowDown(Player& player);
+    void CalculateNewAngle(Player& player, Vector2 posMouse);
 
     void Update(Player& player, float deltaTime);
 
     void Draw(Player player);
 
-
+    void Delete();
 }
