@@ -163,17 +163,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Objects\Button.cpp" />
     <ClCompile Include="src\Objects\ColisionManager.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
     <ClCompile Include="src\Screens\ScreenGame.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
+    <ClCompile Include="src\Utils\Sprite.cpp" />
     <ClCompile Include="src\Utils\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Objects\Button.h" />
     <ClInclude Include="src\Objects\ColisionManager.h" />
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\Screens\ScreenGame.h" />
     <ClInclude Include="src\Screens\ScreenManager.h" />
+    <ClInclude Include="src\Utils\Sprite.h" />
     <ClInclude Include="src\Utils\Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

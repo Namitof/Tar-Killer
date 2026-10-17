@@ -1,0 +1,65 @@
+#include "Button.h"
+
+#include <raylib.h>
+
+#include "../Utils/Text.h"
+#include "../Utils/Sprite.h"
+
+namespace Button
+{
+	void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite)
+	{
+		currentButton.isPressed = false;
+		currentButton.wasPressed = false;
+		currentButton.isMouseOnButton = false;
+
+		currentButton.currentColor = buttonColor;
+		currentButton.defaultColor = buttonColor;
+		currentButton.selectColor = selectColor;
+
+		currentButton.hitbox = hitbox;
+
+		currentButton.text = text;
+
+		currentButton.hitbox = hitbox;
+
+		currentButton.defaultSprite = defaultSprite;
+		currentButton.currentSprite = defaultSprite;
+		currentButton.selectSprite = selectSprite;
+	}
+
+	void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
+	{
+		double minX = currentButton.hitbox.x;
+		double minY = currentButton.hitbox.y;
+		double maxX = currentButton.hitbox.x + currentButton.hitbox.width;
+		double maxY = currentButton.hitbox.y + currentButton.hitbox.height;
+
+		if ((mousePosition.x >= minX && mousePosition.x <= maxX) && (mousePosition.y >= minY && mousePosition.y <= maxY))
+		{
+			currentButton.isMouseOnButton = true;
+			currentButton.currentColor = currentButton.selectColor;
+			currentButton.currentSprite = currentButton.selectSprite;
+		}
+		else
+		{
+			currentButton.isMouseOnButton = false;
+			currentButton.currentColor = currentButton.defaultColor;
+			currentButton.currentSprite = currentButton.defaultSprite;
+
+		}
+	}
+
+	void DrawButton(Button currentButton)
+	{
+		//Hitbox
+#ifdef _DEBUG
+		DrawRectangleRec(currentButton.hitbox, RED);
+#endif
+
+		//Boton
+		Sprite::DrawSprite(currentButton.currentSprite);
+		Text::DrawText(currentButton.text);
+	}
+}
+

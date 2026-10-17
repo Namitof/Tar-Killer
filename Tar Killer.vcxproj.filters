@@ -51,6 +51,12 @@
     <ClCompile Include="src\Utils\Text.cpp">
       <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\Sprite.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\Button.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screens\ScreenManager.h">
@@ -67,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="src\Utils\Text.h">
       <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Sprite.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Button.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
