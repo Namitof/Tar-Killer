@@ -4,24 +4,27 @@
 
 #include <raylib.h>
 
-
-void TextInit(Text& currentText, Font font, float fontSize, std::string text, Vector2 position, float spacing, Color tint)
+namespace Text
 {
-	currentText.font = font;
-	currentText.fontSize = fontSize;
-	currentText.text = text;
-	currentText.position = position;
-	currentText.spacing = spacing;
-	currentText.tint = tint;
+	void TextInit(Text& currentText, Font font, float fontSize, std::string text, Vector2 position, float spacing, Color tint)
+	{
+		currentText.font = font;
+		currentText.fontSize = fontSize;
+		currentText.text = text;
+		currentText.position = position;
+		currentText.spacing = spacing;
+		currentText.tint = tint;
+	}
+
+	void SetTextPos(Text& currentText, float textPosX, float textPosY)
+	{
+		currentText.position.x = textPosX;
+		currentText.position.y = textPosY;
+	}
+
+	void DrawText(Text& currentText)
+	{
+		DrawTextEx(currentText.font, currentText.text.c_str(), currentText.position, currentText.fontSize, currentText.spacing, currentText.tint);
+	}
 }
 
-void SetTextPos(Text& currentText, float textPosX, float textPosY)
-{
-	currentText.position.x = textPosX;
-	currentText.position.y = textPosY;
-}
-
-void DrawText(Text& currentText)
-{
-	DrawTextEx(currentText.font, currentText.text.c_str(), currentText.position, currentText.fontSize, currentText.spacing, currentText.tint);
-}
