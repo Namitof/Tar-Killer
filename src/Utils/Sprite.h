@@ -2,22 +2,26 @@
 
 #include <raylib.h>
 
-struct Sprite
+namespace Sprite
 {
-	Texture2D texture;
+	struct Sprite
+	{
+		Texture2D texture;
 
-	Rectangle source;
+		Rectangle source;
 
-	Rectangle destination;
+		Rectangle destination;
 
-	Vector2 pivot;
+		Vector2 pivot;
 
-	float rotation;
+		float rotation;
 
-	Color tint;
+		Color tint;
 
-};
+	};
 
-void SpriteInit(Sprite& currentSprite, Texture2D texture, Rectangle source, Rectangle destination, Vector2 pivot, float rotation, Color tint);
+	void SpriteInit(Sprite& currentSprite, Texture2D texture, Rectangle source, Rectangle destination, Vector2 pivot, float rotation, Color tint);
 
-void DrawSprite(Sprite currentSprite);
+	void DrawSprite(Sprite currentSprite);
+}
+
