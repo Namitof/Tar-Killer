@@ -2,7 +2,6 @@
 
 #include <raylib.h>
 
-
 namespace Player
 {
     const float PLAYER_RADIUS = 50.0f;

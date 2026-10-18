@@ -2,12 +2,11 @@
 
 #include <raylib.h>
 #include <raymath.h>
+
 #include <cmath>
 
 namespace Player
 {
-
-
 	void Init(Player& player)
 	{
 		player.pos.x = 50.0f;
@@ -88,14 +87,14 @@ namespace Player
 
 	void Update(Player& player, float deltaTime)
 	{
-		//Actualizo vector direccion
+		// Actualizo vector direccion
 		Vector2 posMouse = GetMousePosition();
 		player.direction = Vector2Subtract(posMouse, player.pos);
 
-		//Calculo el nuevo angulo
+		// Calculo el nuevo angulo
 		CalculateNewAngle(player, posMouse);
 
-		//Aceleracion
+		// Aceleracion
 		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 		{
 			player.direction = Vector2Normalize(player.direction);
@@ -103,10 +102,12 @@ namespace Player
 			player.speed.x += (player.direction.x * player.maxSpeed) * deltaTime;
 			player.speed.y += (player.direction.y * player.maxSpeed) * deltaTime;
 
-			if (Vector2Length(player.speed) > player.maxSpeed)
+			float magnitude = Vector2Length(player.speed);
+
+			if (magnitude > player.maxSpeed)
 			{
-				player.speed.x = (player.speed.x / Vector2Length(player.speed)) * player.maxSpeed;
-				player.speed.y = (player.speed.y / Vector2Length(player.speed)) * player.maxSpeed;
+				player.speed.x = (player.speed.x / magnitude) * player.maxSpeed;
+				player.speed.y = (player.speed.y / magnitude) * player.maxSpeed;
 			}
 		}
 
