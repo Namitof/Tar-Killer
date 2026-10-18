@@ -10,6 +10,7 @@ namespace Button
 	void Init(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite)
 	{
 		currentButton.isPressed = false;
+		currentButton.wasPressed = false;
 		currentButton.isMouseOnButton = false;
 
 		currentButton.currentColor = buttonColor;
@@ -27,6 +28,8 @@ namespace Button
 
 	void Update(Button& currentButton, Vector2 mousePosition)
 	{
+		currentButton.wasPressed = currentButton.isPressed;
+
 		double minX = currentButton.hitbox.x;
 		double minY = currentButton.hitbox.y;
 		double maxX = currentButton.hitbox.x + currentButton.hitbox.width;
@@ -45,6 +48,16 @@ namespace Button
 			currentButton.currentSprite = currentButton.defaultSprite;
 
 		}
+
+		if (currentButton.isMouseOnButton && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		{
+			currentButton.isPressed = true;
+		}
+		else
+		{
+			currentButton.isPressed = false;
+		}
+
 	}
 
 	void Draw(Button currentButton)

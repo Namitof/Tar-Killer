@@ -13,6 +13,7 @@ namespace Button
 	struct Button
 	{
 		bool isPressed;
+		bool wasPressed;
 		bool isMouseOnButton;
 
 		Color currentColor;
