@@ -4,7 +4,7 @@
 
 namespace Sprite
 {
-	void SpriteInit(Sprite& currentSprite, Texture2D texture, Rectangle source, Rectangle destination, Vector2 pivot, float rotation, Color tint)
+	void Init(Sprite& currentSprite, Texture2D texture, Rectangle source, Rectangle destination, Vector2 pivot, float rotation, Color tint)
 	{
 		currentSprite.texture = texture;
 		currentSprite.source = source;
@@ -14,7 +14,7 @@ namespace Sprite
 		currentSprite.tint = tint;
 	}
 
-	void DrawSprite(Sprite currentSprite)
+	void Draw(Sprite currentSprite)
 	{
 		DrawTexturePro(currentSprite.texture, currentSprite.source, currentSprite.destination, currentSprite.pivot, currentSprite.rotation, currentSprite.tint);
 	}

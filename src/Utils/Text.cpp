@@ -4,9 +4,10 @@
 
 #include <raylib.h>
 
+
 namespace Text
 {
-	void TextInit(Text& currentText, Font font, float fontSize, std::string text, Vector2 position, float spacing, Color tint)
+	void Init(Text& currentText, Font font, float fontSize, std::string text, Vector2 position, float spacing, Color tint)
 	{
 		currentText.font = font;
 		currentText.fontSize = fontSize;
@@ -22,7 +23,7 @@ namespace Text
 		currentText.position.y = textPosY;
 	}
 
-	void DrawText(Text& currentText)
+	void Draw(Text& currentText)
 	{
 		DrawTextEx(currentText.font, currentText.text.c_str(), currentText.position, currentText.fontSize, currentText.spacing, currentText.tint);
 	}
