@@ -7,13 +7,12 @@
 
 namespace Button
 {
-	const double BUTTON_WIDTH = 250;
-	const double BUTTON_HEIGHT = 80;
+	const float BUTTON_WIDTH = 250.0f;
+	const float BUTTON_HEIGHT = 80.0f;
 
 	struct Button
 	{
 		bool isPressed;
-		bool wasPressed;
 		bool isMouseOnButton;
 
 		Color currentColor;
@@ -31,10 +30,10 @@ namespace Button
 		Sprite::Sprite selectSprite;
 	};
 
-	void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Vector2 position, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite);
+	void Init(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite);
 
-	void IsMouseOnButton(Button& currentButton, Vector2 mousePosition);
+	void Update(Button& currentButton, Vector2 mousePosition);
 
-	void DrawButton(Button currentButton);
+	void Draw(Button currentButton);
 }
 

@@ -7,10 +7,9 @@
 
 namespace Button
 {
-	void ButtonInit(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite)
+	void Init(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite)
 	{
 		currentButton.isPressed = false;
-		currentButton.wasPressed = false;
 		currentButton.isMouseOnButton = false;
 
 		currentButton.currentColor = buttonColor;
@@ -21,14 +20,12 @@ namespace Button
 
 		currentButton.text = text;
 
-		currentButton.hitbox = hitbox;
-
 		currentButton.defaultSprite = defaultSprite;
 		currentButton.currentSprite = defaultSprite;
 		currentButton.selectSprite = selectSprite;
 	}
 
-	void IsMouseOnButton(Button& currentButton, Vector2 mousePosition)
+	void Update(Button& currentButton, Vector2 mousePosition)
 	{
 		double minX = currentButton.hitbox.x;
 		double minY = currentButton.hitbox.y;
@@ -50,16 +47,15 @@ namespace Button
 		}
 	}
 
-	void DrawButton(Button currentButton)
+	void Draw(Button currentButton)
 	{
 		//Hitbox
 #ifdef _DEBUG
 		DrawRectangleRec(currentButton.hitbox, RED);
 #endif
-
 		//Boton
-		Sprite::DrawSprite(currentButton.currentSprite);
-		Text::DrawText(currentButton.text);
+		Sprite::Draw(currentButton.currentSprite);
+		Text::Draw(currentButton.text);
 	}
 }
 
