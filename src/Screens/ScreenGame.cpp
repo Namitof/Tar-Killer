@@ -25,9 +25,4 @@ namespace Game
 	{
 		Player::Draw(player);
 	}
-
-	void Delete()
-	{
-
-	}
 }

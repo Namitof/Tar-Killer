@@ -10,6 +10,4 @@ namespace Game
 	void Update(float deltaTime, int width, int height);
 
 	void Draw();
-
-	void Delete();
 }
