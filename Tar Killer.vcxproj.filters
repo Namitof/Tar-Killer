@@ -57,6 +57,18 @@
     <ClCompile Include="src\Objects\Button.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screens\ScreenMenu.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\ScreenSettings.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\ScreenRules.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\ScreenCredits.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screens\ScreenManager.h">
@@ -79,6 +91,18 @@
     </ClInclude>
     <ClInclude Include="src\Objects\Button.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\ScreenMenu.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\ScreenSettings.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\ScreenRules.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\ScreenCredits.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
