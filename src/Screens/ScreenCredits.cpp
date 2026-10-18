@@ -9,6 +9,12 @@
 
 namespace Credits
 {
+	//Constantes
+	const float BACK_TEXT_OFFSET_X = 65.0f;
+	const float BUTTONS_TEXT_OFFSET_Y = 5.0f;
+	const float BUTTON_FONT_SIZE = 60.0f;
+	const float BUTTON_FONT_SPACING = 2.0f;
+	
 	//Background
 	static Sprite::Sprite background;
 
@@ -140,12 +146,12 @@ namespace Credits
 
 		//Text backButton
 		text.font = menuFont;
-		text.fontSize = 60; //**********
+		text.fontSize = BUTTON_FONT_SIZE;
 		text.text = "Back";
-		text.position.x = destination.x + 65; //**********
-		text.position.y = destination.y + 5; //**********
-		text.spacing = 2; //**********
-		text.tint = WHITE;//**********
+		text.position.x = destination.x + BACK_TEXT_OFFSET_X;
+		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+		text.spacing = BUTTON_FONT_SPACING;
+		text.tint = WHITE;
 
 		//Hitbox playButton
 		hitbox = destination;
@@ -172,8 +178,10 @@ namespace Credits
 
 		//Back
 		Button::Update(backButton, mousePos);
-		if (backButton.isMouseOnButton && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (!backButton.isPressed && backButton.wasPressed)
 		{
+			backButton.isPressed = false;
+			backButton.wasPressed = false;
 			backButtonPressed = true;
 		}
 		else

@@ -10,6 +10,16 @@
 
 namespace Menu
 {
+	//Constantes
+	const float PLAY_TEXT_OFFSET_X = 65.0f;
+	const float SETTINGS_TEXT_OFFSET_X = 15.0f;
+	const float RULES_OFFSET_X = 55.0f;
+	const float CREDITS_TEXT_OFFSET_X = 25.0f;
+	const float EXIT_TEXT_OFFSET_X = 65.0f;
+	const float BUTTONS_TEXT_OFFSET_Y = 5.0f;
+	const float BUTTON_FONT_SIZE = 60.0f;
+	const float BUTTON_FONT_SPACING = 2.0f;
+
 	//Background
 	static Sprite::Sprite background;
 
@@ -160,12 +170,12 @@ namespace Menu
 
 		//Text playButton
 		text.font = menuFont;
-		text.fontSize = 60; //**********
+		text.fontSize = BUTTON_FONT_SIZE;
 		text.text = "Play";
-		text.position.x = destination.x + 65; //**********
-		text.position.y = destination.y + 5; //**********
-		text.spacing = 2; //**********
-		text.tint = WHITE;//**********
+		text.position.x = destination.x + PLAY_TEXT_OFFSET_X;
+		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+		text.spacing = BUTTON_FONT_SPACING;
+		text.tint = WHITE;
 
 		//Hitbox playButton
 		hitbox = destination;
@@ -217,11 +227,11 @@ namespace Menu
 
 		//Text settingsButton
 		text.font = menuFont;
-		text.fontSize = 60;//**********
+		text.fontSize = BUTTON_FONT_SIZE;
 		text.text = "Settings";
-		text.position.x = destination.x + 65;//**********
-		text.position.y = destination.y + 5;//**********
-		text.spacing = 2;//**********
+		text.position.x = destination.x + SETTINGS_TEXT_OFFSET_X;
+		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+		text.spacing = BUTTON_FONT_SPACING;
 		text.tint = WHITE;
 
 		//Hitbox settingsButton
@@ -274,11 +284,11 @@ namespace Menu
 
 		//Text rulesButton
 		text.font = menuFont;
-		text.fontSize = 60;//**********
+		text.fontSize = BUTTON_FONT_SIZE;
 		text.text = "Rules";
-		text.position.x = destination.x + 65;//**********
-		text.position.y = destination.y + 5;//**********
-		text.spacing = 2;//**********
+		text.position.x = destination.x + RULES_OFFSET_X;
+		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+		text.spacing = BUTTON_FONT_SPACING;
 		text.tint = WHITE;
 
 		//Hitbox rulesButton
@@ -331,11 +341,11 @@ namespace Menu
 
 		//Text creditsButton
 		text.font = menuFont;
-		text.fontSize = 60;//**********
+		text.fontSize = BUTTON_FONT_SIZE;
 		text.text = "Credits";
-		text.position.x = destination.x + 65;//**********
-		text.position.y = destination.y + 5;//**********
-		text.spacing = 2;//**********
+		text.position.x = destination.x + CREDITS_TEXT_OFFSET_X;
+		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+		text.spacing = BUTTON_FONT_SPACING;
 		text.tint = WHITE;
 
 		//Hitbox creditsButton
@@ -388,11 +398,11 @@ namespace Menu
 
 		//Text exitButton
 		text.font = menuFont;
-		text.fontSize = 60;//**********
+		text.fontSize = BUTTON_FONT_SIZE;
 		text.text = "Exit";
-		text.position.x = destination.x + 65;//**********
-		text.position.y = destination.y + 5;//**********
-		text.spacing = 2;//**********
+		text.position.x = destination.x + EXIT_TEXT_OFFSET_X;
+		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+		text.spacing = BUTTON_FONT_SPACING;
 		text.tint = WHITE;
 
 		//Hitbox creditsButton
@@ -420,8 +430,10 @@ namespace Menu
 
 		//Play
 		Button::Update(playButton, mousePos);
-		if (playButton.isMouseOnButton && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (!playButton.isPressed && playButton.wasPressed)
 		{
+			playButton.isPressed = false;
+			playButton.wasPressed = false;
 			playButtonPressed = true;
 		}
 		else
@@ -431,8 +443,10 @@ namespace Menu
 
 		//Settings
 		Button::Update(settingsButton, mousePos);
-		if (settingsButton.isMouseOnButton && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (!settingsButton.isPressed && settingsButton.wasPressed)
 		{
+			settingsButton.isPressed = false;
+			settingsButton.wasPressed = false;
 			settingsButtonPressed = true;
 		}
 		else
@@ -442,8 +456,10 @@ namespace Menu
 
 		//Rules
 		Button::Update(rulesButton, mousePos);
-		if (rulesButton.isMouseOnButton && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (!rulesButton.isPressed && rulesButton.wasPressed)
 		{
+			rulesButton.isPressed = false;
+			rulesButton.wasPressed = false;
 			rulesButtonPressed = true;
 		}
 		else
@@ -453,8 +469,10 @@ namespace Menu
 
 		//Credits
 		Button::Update(creditsButton, mousePos);
-		if (creditsButton.isMouseOnButton && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (!creditsButton.isPressed && creditsButton.wasPressed)
 		{
+			creditsButton.isPressed = false;
+			creditsButton.wasPressed = false;
 			creditsButtonPressed = true;
 		}
 		else
@@ -464,8 +482,10 @@ namespace Menu
 
 		//Exit
 		Button::Update(exitButton, mousePos);
-		if (exitButton.isMouseOnButton && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		if (!exitButton.isPressed && exitButton.wasPressed)
 		{
+			exitButton.isPressed = false;
+			exitButton.wasPressed = false;
 			exitButtonPressed = true;
 		}
 		else
