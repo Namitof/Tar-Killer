@@ -69,6 +69,9 @@
     <ClCompile Include="src\Screens\ScreenCredits.cpp">
       <Filter>Archivos de origen\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Bullet.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screens\ScreenManager.h">
@@ -103,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="src\Screens\ScreenCredits.h">
       <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Bullet.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

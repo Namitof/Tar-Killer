@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Objects\Bullet.cpp" />
     <ClCompile Include="src\Objects\Button.cpp" />
     <ClCompile Include="src\Objects\ColisionManager.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="src\Utils\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Objects\Bullet.h" />
     <ClInclude Include="src\Objects\Button.h" />
     <ClInclude Include="src\Objects\ColisionManager.h" />
     <ClInclude Include="src\Objects\Player.h" />
