@@ -2,6 +2,8 @@
 
 #include <raylib.h>
 
+#include "../Utils/Sprite.h"
+
 namespace Player
 {
     const float PLAYER_RADIUS = 50.0f;
@@ -26,15 +28,18 @@ namespace Player
         //Se mueve el pivote al punto de origen del rectangulo
         Rectangle spriteRectangle;
         Vector2 pivot;
-
+        
         float rotation;
 
         //Estadisticas de juego
         int score;
         int lifes;
+
+        //Sprite
+        Sprite::Sprite sprite;
 	};
 
-    void Init(Player& player);
+    void Init(Player& player, Sprite::Sprite playerSprite, int screenWidth, int screenHeight);
 
     void Move(Player& player, float deltaTime);
 

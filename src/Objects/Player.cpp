@@ -5,12 +5,14 @@
 
 #include <cmath>
 
+#include "../Utils/Sprite.h"
+
 namespace Player
 {
-	void Init(Player& player)
+	void Init(Player& player, Sprite::Sprite playerSprite, int screenWidth, int screenHeight)
 	{
-		player.pos.x = 50.0f;
-		player.pos.y = 50.0f;
+		player.pos.x = static_cast<float>(screenWidth / 2);
+		player.pos.y = static_cast<float>(screenHeight / 2);
 
 		player.direction.x = 0.0f;
 		player.direction.y = 0.0f;
@@ -22,8 +24,8 @@ namespace Player
 
 		player.maxSpeed = PLAYER_MAX_SPEED;
 
-		player.spriteRectangle.width = 100.0f;
-		player.spriteRectangle.height = 100.0f;
+		player.spriteRectangle.width = PLAYER_RADIUS * 2;
+		player.spriteRectangle.height = PLAYER_RADIUS * 2;
 		player.spriteRectangle.x = player.pos.x;
 		player.spriteRectangle.y = player.pos.y;
 
@@ -34,6 +36,11 @@ namespace Player
 
 		player.lifes = PLAYER_LIFES;
 		player.score = 0;
+
+		player.sprite = playerSprite;
+
+		player.sprite.pivot = player.pivot;
+		player.sprite.destination = player.spriteRectangle;
 	}
 
 	void Move(Player& player, float deltaTime)
@@ -43,6 +50,10 @@ namespace Player
 
 		player.spriteRectangle.x = player.pos.x;
 		player.spriteRectangle.y = player.pos.y;
+
+		player.sprite.destination.x = player.spriteRectangle.x;
+		player.sprite.destination.y = player.spriteRectangle.y;
+
 	}
 
 	void CalculateNewAngle(Player& player, Vector2 posMouse)
@@ -83,6 +94,8 @@ namespace Player
 		}
 
 		player.rotation = angle;
+
+		player.sprite.rotation = player.rotation;
 	}
 
 	void Update(Player& player, float deltaTime)
@@ -116,9 +129,11 @@ namespace Player
 
 	void Draw(Player player)
 	{
-		DrawRectangleRec(player.spriteRectangle, GREEN);
+#ifdef _DEBUG
 		DrawRectanglePro(player.spriteRectangle, player.pivot, player.rotation, BLUE);
 		DrawCircleV(player.pos, player.radius, RED);
+#endif
+		Sprite::Draw(player.sprite);
 	}
 
 	void Delete()
