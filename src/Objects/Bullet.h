@@ -7,11 +7,11 @@ namespace Bullet
 	//Constantes
 	const int MAX_BULLETS = 100;
 
-	const float BULLET_SPEED = 500.0f;
+	const float BULLET_SPEED = 600.0f;
 
 	const float COUNT_MAX_VALUE = 5.0f;
 
-	const float BULLET_RADIUS = 30.0f;
+	const float BULLET_RADIUS = 15.0f;
 
 	const Color BULLET_COLOR = VIOLET;
 
