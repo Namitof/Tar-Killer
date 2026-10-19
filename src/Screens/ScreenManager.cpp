@@ -16,9 +16,12 @@ namespace ScreenManager
 {
 	//Recursos del juego
 	static Texture2D menuBackground;
+	static Texture2D gameBackground;
 	static Texture2D optionsBackground;
 
 	static Texture2D logo;
+
+	static Texture2D player;
 
 	static Texture2D defaultButton;
 	static Texture2D selectButton;
@@ -47,9 +50,12 @@ namespace ScreenManager
 
 		//Carga de recursos y distribucion
 		menuBackground = LoadTexture("res/background/BackgroundMenu.png");
+		gameBackground = LoadTexture("res/background/BackgroundGame.png");
 		optionsBackground = LoadTexture("res/background/BackgroundOptions.png");
 
 		logo = LoadTexture("res/logo/LogoTarKiller.png");
+
+		player = LoadTexture("res/player/player.png");
 
 		const int FONT_SIZE = 100;
 		font = LoadFontEx("res/font/SquareAntiqua-Bold.ttf", FONT_SIZE, NULL, 0);
@@ -61,7 +67,7 @@ namespace ScreenManager
 		//Init a cada escena del juego
 		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		Game::Init();
+		Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player);
 
 		Settings::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -188,9 +194,12 @@ namespace ScreenManager
 	{
 		//Unload a todos los recursos
 		UnloadTexture(menuBackground);
+		UnloadTexture(gameBackground);
 		UnloadTexture(optionsBackground);
 
 		UnloadTexture(logo);
+
+		UnloadTexture(player);
 
 		UnloadFont(font);
 
