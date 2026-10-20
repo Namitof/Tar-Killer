@@ -27,20 +27,20 @@ namespace Bullet
 
 	void Update(Bullet& currentBullet, float deltaTime)
 	{
+		if (!currentBullet.isActive)
+			return;
+
 		//Actualizar posicion
 		currentBullet.pos.x += currentBullet.direction.x * currentBullet.speed * deltaTime;
 		currentBullet.pos.y += currentBullet.direction.y * currentBullet.speed * deltaTime;
 
 		//Actualizar el contador
-		if (currentBullet.isActive)
+		currentBullet.count += deltaTime;
+		if (currentBullet.count >= currentBullet.countMaxValue)
 		{
-			currentBullet.count += deltaTime;
-			if (currentBullet.count >= currentBullet.countMaxValue)
-			{
-				Init(currentBullet);
-			}
+			Init(currentBullet);
 		}
-		
+
 	}
 
 	void Draw(Bullet currentBullet)
