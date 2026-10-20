@@ -2,25 +2,52 @@
 
 #include <raylib.h>
 
+#include <string>
+
 #include "../Objects/Player.h"
 #include "../Objects/Bullet.h"
 #include "../Objects/ColisionManager.h"
+#include "../Objects/Button.h"
+#include "../Objects/Enemy.h"
 #include "../Utils/Sprite.h"
+#include "../Utils/Text.h"
 
 namespace Game
 {
 	//Constantes
+	const float PAUSE_TEXT_OFFSET_X = 12.0f;
+	const float PAUSE_TEXT_OFFSET_Y = 8.0f;
+	const float BUTTON_FONT_SIZE = 35.0f;
+	const float BUTTON_FONT_SPACING = 2.0f;
+
+	const float PAUSE_BUTTON_WIDTH = 120.0f;
+	const float PAUSE_BUTTON_HEIGHT = 60.0f;
+
+	const float HUD_FONT_SIZE = 40.0f;
 
 	static Sprite::Sprite background;
+
+	static Font gameFont;
+
+	static Text::Text score;
+
+	static Text::Text lives;
+
+	static Button::Button pauseButton;
 
 	static Player::Player player;
 
 	static Bullet::Bullet bulletPool[Bullet::MAX_BULLETS];
 
+	//static int ENEMY_COUNT;
+	//static Enemy::Enemy enemyPool[Enemy::MAX_ENEMYS];
+
 
 	void BackgroundInit(Texture2D gameBackground, int screenWidth, int screenHeight);
 
 	void PlayerInit(Texture2D playerTexture, int screenWidth, int screenHeight);
+
+	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth);
 
 
 	void BackgroundInit(Texture2D gameBackground, int screenWidth, int screenHeight)
@@ -87,11 +114,115 @@ namespace Game
 		Player::Init(player, playerSprite, screenWidth, screenHeight);
 	}
 
-	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture)
+	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth)
+	{
+		//Componentes del struct sprite
+		Rectangle source;
+		Rectangle destination;
+		Vector2 pivot;
+		float rotation;
+		Color tint;
+
+		//Init a cada boton
+		Vector2 buttonPos;
+
+		Vector2 textPos;
+
+		Color currentColor = WHITE;
+		Color defaultColor = WHITE;
+		Color selectColor = WHITE;
+
+		Sprite::Sprite defaultSprite;
+		Sprite::Sprite selectSprite;
+
+		Text::Text text;
+
+		Rectangle hitbox;
+
+		// PAUSEBUTTON
+		//Default Sprite pauseButton
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(defaultButtonTexture.width);
+		source.height = static_cast<float>(defaultButtonTexture.height);
+
+		destination.width = PAUSE_BUTTON_WIDTH;
+		destination.height = PAUSE_BUTTON_HEIGHT;
+
+		buttonPos.x = screenWidth - destination.width - BUTTON_OFFSET;
+		buttonPos.y = BUTTON_OFFSET;
+
+		destination.x = buttonPos.x;
+		destination.y = buttonPos.y;
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(defaultSprite, defaultButtonTexture, source, destination, pivot, rotation, tint);
+
+		//Select Sprite pauseButton
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(selectButtonTexture.width);
+		source.height = static_cast<float>(selectButtonTexture.height);
+
+		destination.width = PAUSE_BUTTON_WIDTH;
+		destination.height = PAUSE_BUTTON_HEIGHT;
+
+		buttonPos.x = screenWidth - destination.width - BUTTON_OFFSET;
+		buttonPos.y = BUTTON_OFFSET;
+
+		destination.x = buttonPos.x;
+		destination.y = buttonPos.y;
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
+
+		//Text pauseButton
+		textPos.x = destination.x + PAUSE_TEXT_OFFSET_X;
+		textPos.y = destination.y + PAUSE_TEXT_OFFSET_Y;
+
+		Text::Init(text, gameFont, BUTTON_FONT_SIZE, "Pause", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//Hitbox pauseButton
+		hitbox = destination;
+
+		Button::Init(pauseButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+
+		//Lives
+		textPos.x = PAUSE_TEXT_OFFSET_X;
+		textPos.y = PAUSE_TEXT_OFFSET_X;
+
+		Text::Init(lives, gameFont, HUD_FONT_SIZE, "Lives: 0", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//Score
+		textPos.x = PAUSE_TEXT_OFFSET_X;
+		textPos.y = PAUSE_TEXT_OFFSET_X + HUD_FONT_SIZE;
+
+		Text::Init(score, gameFont, HUD_FONT_SIZE, "Score: 0", textPos, BUTTON_FONT_SPACING, WHITE);
+
+	}
+
+
+	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture)
 	{
 		BackgroundInit(gameBackground, screenWidth, screenHeight);
 
 		PlayerInit(playerTexture, screenWidth, screenHeight);
+
+		gameFont = font;
+
+		HudInit(defaultButtonTexture, selectButtonTexture, screenWidth);
 
 		for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 		{
@@ -100,8 +231,32 @@ namespace Game
 
 	}
 
-	void Update(float deltaTime, int width, int height)
+	void Update(bool& pauseButtonPressed, float deltaTime, int width, int height)
 	{
+		//HUD
+		
+		//Textos
+		lives.text = "Lives: " + std::to_string(player.lifes);
+		score.text = "Score: " + std::to_string(player.score);
+
+		//Boton
+		//Actualizar estado de botones
+		Vector2 mousePos = GetMousePosition();
+
+		//Pause
+		Button::Update(pauseButton, mousePos);
+		if (!pauseButton.isPressed && pauseButton.wasPressed)
+		{
+			pauseButton.isPressed = false;
+			pauseButton.wasPressed = false;
+			pauseButtonPressed = true;
+		}
+		else
+		{
+			pauseButtonPressed = false;
+		}
+		
+		//Partida
 		Player::Update(player, deltaTime);
 
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
@@ -140,6 +295,10 @@ namespace Game
 		}
 
 		Player::Draw(player);
+
+		Button::Draw(pauseButton);
+		Text::Draw(lives);
+		Text::Draw(score);
 
 	}
 }
