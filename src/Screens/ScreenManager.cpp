@@ -14,6 +14,9 @@
 
 namespace ScreenManager
 {
+	//Constantes
+	const int FONT_SIZE = 100;
+
 	//Recursos del juego
 	static Texture2D menuBackground;
 	static Texture2D gameBackground;
@@ -57,7 +60,6 @@ namespace ScreenManager
 
 		player = LoadTexture("res/player/player.png");
 
-		const int FONT_SIZE = 100;
 		font = LoadFontEx("res/font/SquareAntiqua-Bold.ttf", FONT_SIZE, NULL, 0);
 
 		defaultButton = LoadTexture("res/buttons/DefaultButton.png");
@@ -67,7 +69,7 @@ namespace ScreenManager
 		//Init a cada escena del juego
 		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player);
+		Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 
 		Settings::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -86,6 +88,8 @@ namespace ScreenManager
 		bool exitButtonPressed;
 		bool backButtonPresed;
 
+		bool pauseButtonPresed;
+
 		switch (currentScreen)
 		{
 		case ScreenManager::ScreenOptions::Menu:
@@ -94,6 +98,7 @@ namespace ScreenManager
 			if (playButtonPressed)
 			{
 				currentScreen = ScreenOptions::Play;
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 			}
 			else if (settingsButtonPressed)
 			{
@@ -114,7 +119,13 @@ namespace ScreenManager
 
 			break;
 		case ScreenManager::ScreenOptions::Play:
-			Game::Update(deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
+			Game::Update(pauseButtonPresed, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			if (pauseButtonPresed)
+			{
+				currentScreen = ScreenOptions::Menu;
+			}
+
 			break;
 		case ScreenManager::ScreenOptions::Settings:
 			Settings::Update(backButtonPresed);

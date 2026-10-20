@@ -116,6 +116,8 @@ namespace Menu
 		//Init a cada boton
 		Vector2 buttonPos = INITIAL_BUTTON_POS;
 
+		Vector2 textPos;
+
 		Color currentColor = WHITE;
 		Color defaultColor = WHITE;
 		Color selectColor = WHITE;
@@ -168,14 +170,11 @@ namespace Menu
 
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
-		//Text playButton
-		text.font = menuFont;
-		text.fontSize = BUTTON_FONT_SIZE;
-		text.text = "Play";
-		text.position.x = destination.x + PLAY_TEXT_OFFSET_X;
-		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
-		text.spacing = BUTTON_FONT_SPACING;
-		text.tint = WHITE;
+		//Text playButton	
+		textPos.x = destination.x + PLAY_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Play", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox playButton
 		hitbox = destination;
@@ -226,13 +225,10 @@ namespace Menu
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text settingsButton
-		text.font = menuFont;
-		text.fontSize = BUTTON_FONT_SIZE;
-		text.text = "Settings";
-		text.position.x = destination.x + SETTINGS_TEXT_OFFSET_X;
-		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
-		text.spacing = BUTTON_FONT_SPACING;
-		text.tint = WHITE;
+		textPos.x = destination.x + SETTINGS_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Settings", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox settingsButton
 		hitbox = destination;
@@ -283,13 +279,10 @@ namespace Menu
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text rulesButton
-		text.font = menuFont;
-		text.fontSize = BUTTON_FONT_SIZE;
-		text.text = "Rules";
-		text.position.x = destination.x + RULES_OFFSET_X;
-		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
-		text.spacing = BUTTON_FONT_SPACING;
-		text.tint = WHITE;
+		textPos.x = destination.x + RULES_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Rules", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox rulesButton
 		hitbox = destination;
@@ -340,13 +333,10 @@ namespace Menu
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text creditsButton
-		text.font = menuFont;
-		text.fontSize = BUTTON_FONT_SIZE;
-		text.text = "Credits";
-		text.position.x = destination.x + CREDITS_TEXT_OFFSET_X;
-		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
-		text.spacing = BUTTON_FONT_SPACING;
-		text.tint = WHITE;
+		textPos.x = destination.x + CREDITS_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Credits", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox creditsButton
 		hitbox = destination;
@@ -397,13 +387,10 @@ namespace Menu
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text exitButton
-		text.font = menuFont;
-		text.fontSize = BUTTON_FONT_SIZE;
-		text.text = "Exit";
-		text.position.x = destination.x + EXIT_TEXT_OFFSET_X;
-		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
-		text.spacing = BUTTON_FONT_SPACING;
-		text.tint = WHITE;
+		textPos.x = destination.x + EXIT_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Exit", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox creditsButton
 		hitbox = destination;

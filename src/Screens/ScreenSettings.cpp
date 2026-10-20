@@ -96,6 +96,8 @@ namespace Settings
 		buttonPos.x = static_cast<float>((screenWidth / 2) - (Button::BUTTON_WIDTH / 2));
 		buttonPos.y = static_cast<float>((screenHeight / 12) * 10);
 
+		Vector2 textPos;
+
 		Color currentColor = WHITE;
 		Color defaultColor = WHITE;
 		Color selectColor = WHITE;
@@ -148,13 +150,10 @@ namespace Settings
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text backButton
-		text.font = menuFont;
-		text.fontSize = BUTTON_FONT_SIZE;
-		text.text = "Back";
-		text.position.x = destination.x + BACK_TEXT_OFFSET_X;
-		text.position.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
-		text.spacing = BUTTON_FONT_SPACING;
-		text.tint = WHITE;
+		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Back", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox playButton
 		hitbox = destination;
