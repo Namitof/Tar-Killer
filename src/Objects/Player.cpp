@@ -135,10 +135,4 @@ namespace Player
 #endif
 		Sprite::Draw(player.sprite);
 	}
-
-	void Delete()
-	{
-
-	}
-
 }

@@ -48,6 +48,4 @@ namespace Player
     void Update(Player& player, float deltaTime);
 
     void Draw(Player player);
-
-    void Delete();
 }
