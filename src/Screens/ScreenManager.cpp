@@ -223,7 +223,7 @@ namespace ScreenManager
 
 	void Run()
 	{
-		srand(static_cast<unsigned int>(time(NULL)));
+		SetRandomSeed(static_cast<unsigned int>(time(NULL)));
 
 		ScreenOptions currentScreen = ScreenOptions::None;
 		float deltaTime = 0.0f;
