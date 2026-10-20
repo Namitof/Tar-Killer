@@ -166,6 +166,7 @@
     <ClCompile Include="src\Objects\Bullet.cpp" />
     <ClCompile Include="src\Objects\Button.cpp" />
     <ClCompile Include="src\Objects\ColisionManager.cpp" />
+    <ClCompile Include="src\Objects\Enemy.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
     <ClCompile Include="src\Screens\ScreenCredits.cpp" />
     <ClCompile Include="src\Screens\ScreenGame.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="src\Objects\Bullet.h" />
     <ClInclude Include="src\Objects\Button.h" />
     <ClInclude Include="src\Objects\ColisionManager.h" />
+    <ClInclude Include="src\Objects\Enemy.h" />
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\Screens\ScreenCredits.h" />
     <ClInclude Include="src\Screens\ScreenGame.h" />
