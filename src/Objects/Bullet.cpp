@@ -8,7 +8,7 @@ namespace Bullet
 	void Init(Bullet& currentBullet)
 	{
 		currentBullet.pos.x = -1;
-		currentBullet.pos.x = -1;
+		currentBullet.pos.y = -1;
 
 		currentBullet.radius = BULLET_RADIUS;
 
