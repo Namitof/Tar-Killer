@@ -325,6 +325,7 @@ namespace Game
 			{
 				if (!bulletPool[i].isActive)
 				{
+					Bullet::Init(bulletPool[i]);
 					bulletPool[i].isActive = true;
 					Bullet::SetPos(bulletPool[i], player.pos);
 					Bullet::SetDirection(bulletPool[i], player.direction);
@@ -397,6 +398,10 @@ namespace Game
 
 		ColisionManager::CheckColisions(player, bulletPool, enemyPool, width, height, enemyCountEliminated);
 
+		if (player.lifes <= 0)
+		{
+			pauseButtonPressed = true;
+		}
 	}
 
 	void Draw()

@@ -12,10 +12,10 @@
 
 namespace ColisionManager
 {
-	bool CheckCollision(Vector2 centerC1, float radiusC1, Vector2 centerC2, float radiusC2);
+	bool CollisionCircleCircle(Vector2 centerC1, float radiusC1, Vector2 centerC2, float radiusC2);
 
 
-	bool CheckCollision(Vector2 centerC1, float radiusC1, Vector2 centerC2, float radiusC2)
+	bool CollisionCircleCircle(Vector2 centerC1, float radiusC1, Vector2 centerC2, float radiusC2)
 	{
 		/*
 			Chequeo de colisiones de circulo a circulo
@@ -42,7 +42,7 @@ namespace ColisionManager
 
 		float sumRadius = radiusC1 + radiusC2;
 
-		return sumRadius * sumRadius >= c;
+		return ((sumRadius * sumRadius) >= c);
 	}
 
 	void ScreenBorderCollision(float& posX, float& posY, float radius, int width, int height)
@@ -93,6 +93,8 @@ namespace ColisionManager
 			}
 		}
 
+		bool inCollision = false;
+
 		// Chequeo colision de las balas con los obstaculos
 		for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 		{
@@ -102,33 +104,146 @@ namespace ColisionManager
 				{
 					if (enemys[j].isActive)
 					{
-						if (CheckCollision(enemys[j].pos, enemys[j].radius, bullets[i].pos, bullets[i].radius))
+						inCollision = CollisionCircleCircle(enemys[j].pos, enemys[j].radius, bullets[i].pos, bullets[i].radius);
+						if (inCollision)
 						{
 							enemys[j].isActive = false;
 							bullets[i].isActive = false;
 							player.score++;
 
-							enemyCountEliminated++;
+							int quantity = 0;
+
+							Vector2 spawnPos = enemys[j].pos;
+
+							spawnPos.x += 10;
+
+							while (quantity < 2)
+							{
+								switch (enemys[j].size)
+								{
+								case Enemy::EnemySize::Large:
+									enemyCountEliminated++;
+
+									for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
+									{
+										if (!enemys[k].isActive)
+										{
+											Enemy::Init(enemys[k], Enemy::EnemySize::Medium);
+											Enemy::SetPos(enemys[k], spawnPos);
+											Enemy::SetDireccion(enemys[k], { 1.0f, 1.0f });
+
+											enemys[k].isActive = true;
+
+											quantity++;
+
+											spawnPos = enemys[j].pos;
+											spawnPos.x -= 10;
+										}
+									}
+
+									break;
+								case Enemy::EnemySize::Medium:
+
+									for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
+									{
+										if (!enemys[k].isActive)
+										{
+											Enemy::Init(enemys[k], Enemy::EnemySize::Small);
+											Enemy::SetPos(enemys[k], spawnPos);
+											Enemy::SetDireccion(enemys[k], { 1.0f, 1.0f });
+
+											enemys[k].isActive = true;
+											quantity++;
+
+											spawnPos = enemys[j].pos;
+											spawnPos.x -= 10;
+										}
+									}
+
+									break;
+								case Enemy::EnemySize::Small:
+									//
+									break;
+								default:
+									break;
+								}
+							}
+
+							//switch (enemys[j].size)
+							//{
+							//case Enemy::EnemySize::Large:
+							//	enemyCountEliminated++;
+
+							//	while (quantity < 2)
+							//	{
+							//		for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
+							//		{
+							//			if (!enemys[k].isActive)
+							//			{
+							//				Enemy::Init(enemys[k], Enemy::EnemySize::Medium);
+							//				Enemy::SetPos(enemys[k], spawnPos);
+							//				Enemy::SetDireccion(enemys[k], {1.0f, 1.0f});
+
+							//				enemys[k].isActive = true;
+
+							//				quantity++;
+
+							//				spawnPos = enemys[j].pos;
+							//				spawnPos.x -= 10;
+							//			}
+							//		}
+
+							//	}
+
+							//	break;
+							//case Enemy::EnemySize::Medium:
+
+							//	while (quantity < 2)
+							//	{
+							//		for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
+							//		{
+							//			if (!enemys[k].isActive)
+							//			{
+							//				Enemy::Init(enemys[k], Enemy::EnemySize::Small);
+							//				Enemy::SetPos(enemys[k], spawnPos);
+							//				Enemy::SetDireccion(enemys[k], { 1.0f, 1.0f });
+
+							//				enemys[k].isActive = true;
+							//				quantity++;
+
+							//				spawnPos = enemys[j].pos;
+							//				spawnPos.x -= 10;
+							//			}
+							//		}
+
+							//	}
+
+							//	break;
+							//case Enemy::EnemySize::Small:
+							//	//
+							//	break;
+							//default:
+							//	break;
+							//}
 
 							break;
 						}
+
 					}
 				}
-			}
-			else
-			{
-				continue;
+				if (inCollision)
+				{
+					break;
+				}
 			}
 		}
-
-		
 
 		// Chequeo colision del player con los enemigos
 		for (int i = 0; i < Enemy::MAX_ENEMYS; i++)
 		{
 			if (enemys[i].isActive)
 			{
-				if (CheckCollision(player.pos, player.radius, enemys[i].pos, enemys[i].radius))
+				if (CollisionCircleCircle(player.pos, player.radius, enemys[i].pos, enemys[i].radius))
 				{
 					/*player.pos.x += enemys[i].direction.x;
 					player.pos.y += enemys[i].direction.y;
@@ -163,11 +278,11 @@ namespace ColisionManager
 
 					if (minY > obstacleCenterY) //golpea de arriba
 					{
-						diffY = minY - obstacleMaxY;
+						diffY = maxY - obstacleMaxY;
 					}
 					else if (maxY < obstacleCenterY) //golpea de abajo
 					{
-						diffY = maxY - obstacleMinY;
+						diffY = minY - obstacleMinY;
 					}
 
 					//float absDiffX = abs(diffX);
