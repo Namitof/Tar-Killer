@@ -10,10 +10,14 @@
 namespace Pause
 {
 	//Constantes
-	const float BACK_TEXT_OFFSET_X = 65.0f;
+	const float EXIT_TEXT_OFFSET_X = 70.0f;
+	const float CONTINUE_TEXT_OFFSET_X = 8.0f;
 	const float BUTTONS_TEXT_OFFSET_Y = 5.0f;
 	const float BUTTON_FONT_SIZE = 60.0f;
 	const float BUTTON_FONT_SPACING = 2.0f;
+	const float BUTTON_SPAWN_OFFSET = 100.0f;
+
+	const float TITLE_TEXT_SIZE = 100.0f;
 
 	//Background
 	static Rectangle transparentBackground;
@@ -23,13 +27,18 @@ namespace Pause
 	static Button::Button continueButton;
 	static Button::Button exitButton;
 
+	//Textos
+	static Text::Text pauseText;
+
 	//Font
-	static Font menuFont;
+	static Font pauseFont;
 
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
 	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
+
+	void TextInit(int screenWidth, int screenHeight);
 
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight)
@@ -115,10 +124,10 @@ namespace Pause
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text backButton
-		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
+		textPos.x = destination.x + EXIT_TEXT_OFFSET_X;
 		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
 
-		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Exit", textPos, BUTTON_FONT_SPACING, WHITE);
+		Text::Init(text, pauseFont, BUTTON_FONT_SIZE, "Exit", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox playButton
 		hitbox = destination;
@@ -134,7 +143,7 @@ namespace Pause
 		source.height = static_cast<float>(defaultButtonTexture.height);
 
 		destination.x = buttonPos.x;
-		destination.y = buttonPos.y - 100;
+		destination.y = buttonPos.y - BUTTON_SPAWN_OFFSET;
 		destination.width = Button::BUTTON_WIDTH;
 		destination.height = Button::BUTTON_HEIGHT;
 
@@ -154,7 +163,7 @@ namespace Pause
 		source.height = static_cast<float>(selectButtonTexture.height);
 
 		destination.x = buttonPos.x;
-		destination.y = buttonPos.y - 100;
+		destination.y = buttonPos.y - BUTTON_SPAWN_OFFSET;
 		destination.width = Button::BUTTON_WIDTH;
 		destination.height = Button::BUTTON_HEIGHT;
 
@@ -168,10 +177,10 @@ namespace Pause
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
 		//Text backButton
-		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
+		textPos.x = destination.x + CONTINUE_TEXT_OFFSET_X;
 		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
 
-		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Continue", textPos, BUTTON_FONT_SPACING, WHITE);
+		Text::Init(text, pauseFont, BUTTON_FONT_SIZE, "Continue", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox playButton
 		hitbox = destination;
@@ -179,14 +188,26 @@ namespace Pause
 		Button::Init(continueButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
+	void TextInit(int screenWidth, int screenHeight)
+	{
+		Vector2 textPos;
+
+		textPos.x = static_cast<float>((screenWidth / 13 ) * 5);
+		textPos.y = static_cast<float>((screenHeight / 10) * 3);
+
+		Text::Init(pauseText, pauseFont, TITLE_TEXT_SIZE, "Pause", textPos, BUTTON_FONT_SPACING, WHITE);
+	}
+
 	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		TransparentBackgroundInit(screenWidth, screenHeight);
 
 		//font
-		menuFont = font;
+		pauseFont = font;
 
 		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
+
+		TextInit(screenWidth, screenHeight);
 	}
 
 	void Update(bool& exitButtonPressed, bool& continueButtonPressed)
@@ -225,6 +246,8 @@ namespace Pause
 	{
 
 		DrawRectangleRec(transparentBackground, transparent);
+
+		Text::Draw(pauseText);
 
 		Button::Draw(continueButton);
 
