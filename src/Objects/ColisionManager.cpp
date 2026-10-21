@@ -93,13 +93,14 @@ namespace ColisionManager
 			}
 		}
 
+		// Chequeo colision de las balas con los obstaculos
 		bool inCollision = false;
 
-		// Chequeo colision de las balas con los obstaculos
 		for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 		{
 			if (bullets[i].isActive)
 			{
+				inCollision = false;
 				for (int j = 0; j < Enemy::MAX_ENEMYS; j++)
 				{
 					if (enemys[j].isActive)
@@ -111,7 +112,9 @@ namespace ColisionManager
 							bullets[i].isActive = false;
 							player.score++;
 
-							if (enemys[j].size == Enemy::EnemySize::Large)
+							Enemy::EnemySize currentSize = enemys[j].size;
+
+							if (currentSize == Enemy::EnemySize::Large)
 							{
 								enemyCountEliminated++;
 							}
@@ -120,11 +123,11 @@ namespace ColisionManager
 
 							Vector2 spawnPos = enemys[j].pos;
 
-							spawnPos.x += 10;
+							spawnPos.x += enemys[j].radius + 10;
 							
 							while (quantity < 2)
 							{
-								switch (enemys[j].size)
+								switch (currentSize)
 								{
 								case Enemy::EnemySize::Large:
 
@@ -133,15 +136,16 @@ namespace ColisionManager
 									quantity++;
 
 									spawnPos = enemys[j].pos;
-									spawnPos.x -= 10;
+									spawnPos.x -= enemys[j].radius - 10;
 									break;
 
 								case Enemy::EnemySize::Medium:
 									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Small, spawnPos, Enemy::GenerateRandomDirection());
+
 									quantity++;
 
 									spawnPos = enemys[j].pos;
-									spawnPos.x -= 10;
+									spawnPos.x -= enemys[j].radius - 10;
 
 									break;
 
@@ -153,116 +157,6 @@ namespace ColisionManager
 									break;
 								}
 							}
-
-							//while (quantity < 2)
-							//{
-							//	switch (enemys[j].size)
-							//	{
-							//	case Enemy::EnemySize::Large:
-							//		enemyCountEliminated++;
-
-							//		for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
-							//		{
-							//			if (!enemys[k].isActive)
-							//			{
-							//				Enemy::Init(enemys[k], Enemy::EnemySize::Medium);
-							//				Enemy::SetPos(enemys[k], spawnPos);
-							//				Enemy::SetDireccion(enemys[k], { 1.0f, 1.0f });
-
-							//				enemys[k].isActive = true;
-
-							//				quantity++;
-
-							//				spawnPos = enemys[j].pos;
-							//				spawnPos.x -= 10;
-							//			}
-							//		}
-
-							//		break;
-							//	case Enemy::EnemySize::Medium:
-
-							//		for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
-							//		{
-							//			if (!enemys[k].isActive)
-							//			{
-							//				Enemy::Init(enemys[k], Enemy::EnemySize::Small);
-							//				Enemy::SetPos(enemys[k], spawnPos);
-							//				Enemy::SetDireccion(enemys[k], { 1.0f, 1.0f });
-
-							//				enemys[k].isActive = true;
-							//				quantity++;
-
-							//				spawnPos = enemys[j].pos;
-							//				spawnPos.x -= 10;
-							//			}
-							//		}
-
-							//		break;
-							//	case Enemy::EnemySize::Small:
-							//		//
-							//		break;
-							//	default:
-							//		break;
-							//	}
-							//}
-
-							//switch (enemys[j].size)
-							//{
-							//case Enemy::EnemySize::Large:
-							//	enemyCountEliminated++;
-
-							//	while (quantity < 2)
-							//	{
-							//		for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
-							//		{
-							//			if (!enemys[k].isActive)
-							//			{
-							//				Enemy::Init(enemys[k], Enemy::EnemySize::Medium);
-							//				Enemy::SetPos(enemys[k], spawnPos);
-							//				Enemy::SetDireccion(enemys[k], {1.0f, 1.0f});
-
-							//				enemys[k].isActive = true;
-
-							//				quantity++;
-
-							//				spawnPos = enemys[j].pos;
-							//				spawnPos.x -= 10;
-							//			}
-							//		}
-
-							//	}
-
-							//	break;
-							//case Enemy::EnemySize::Medium:
-
-							//	while (quantity < 2)
-							//	{
-							//		for (int k = 0; k < Enemy::MAX_ENEMYS; k++)
-							//		{
-							//			if (!enemys[k].isActive)
-							//			{
-							//				Enemy::Init(enemys[k], Enemy::EnemySize::Small);
-							//				Enemy::SetPos(enemys[k], spawnPos);
-							//				Enemy::SetDireccion(enemys[k], { 1.0f, 1.0f });
-
-							//				enemys[k].isActive = true;
-							//				quantity++;
-
-							//				spawnPos = enemys[j].pos;
-							//				spawnPos.x -= 10;
-							//			}
-							//		}
-
-							//	}
-
-							//	break;
-							//case Enemy::EnemySize::Small:
-							//	//
-							//	break;
-							//default:
-							//	break;
-							//}
-
 							break;
 						}
 					}
@@ -321,10 +215,10 @@ namespace ColisionManager
 						diffY = minY - obstacleMinY;
 					}
 
-					//float absDiffX = abs(diffX);
-					//float absDiffY = abs(diffY);
+					/*float absDiffX = abs(diffX);
+					float absDiffY = abs(diffY);
 
-					/*if (absDiffX < absDiffY)
+					if (absDiffX < absDiffY)
 					{
 						player.pos.x += diffX;
 					}
@@ -333,7 +227,7 @@ namespace ColisionManager
 						player.pos.y += diffY;
 					}*/
 					player.pos.x += diffX;
-
+					
 					player.pos.y += diffY;
 
 
