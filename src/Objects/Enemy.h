@@ -2,7 +2,7 @@
 
 #include <raylib.h>
 
-#include "../Utils/Sprite.h"
+#include "Utils/Sprite.h"
 
 namespace Enemy
 {

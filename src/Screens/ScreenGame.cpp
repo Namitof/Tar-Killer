@@ -4,13 +4,13 @@
 
 #include <string>
 
-#include "../Objects/Player.h"
-#include "../Objects/Bullet.h"
-#include "../Objects/ColisionManager.h"
-#include "../Objects/Button.h"
-#include "../Objects/Enemy.h"
-#include "../Utils/Sprite.h"
-#include "../Utils/Text.h"
+#include "Objects/Player.h"
+#include "Objects/Bullet.h"
+#include "Objects/ColisionManager.h"
+#include "Objects/Button.h"
+#include "Objects/Enemy.h"
+#include "Utils/Sprite.h"
+#include "Utils/Text.h"
 
 namespace Game
 {

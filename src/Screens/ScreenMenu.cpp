@@ -2,10 +2,10 @@
 
 #include <raylib.h>
 
-#include "../Utils/Sprite.h"
-#include "../Utils/Text.h"
+#include "Utils/Sprite.h"
+#include "Utils/Text.h"
 
-#include "../Objects/Button.h"
+#include "Objects/Button.h"
 
 
 namespace Menu

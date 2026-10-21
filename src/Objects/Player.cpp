@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-#include "../Utils/Sprite.h"
+#include "Utils/Sprite.h"
 
 namespace Player
 {
