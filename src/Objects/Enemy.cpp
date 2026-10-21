@@ -83,4 +83,65 @@ namespace Enemy
 	{
 		currentEnemy.pos = pos;
 	}
+
+	Vector2 GenerateRandomDirection()
+	{
+		Vector2 direction;
+
+		//Constantes
+		const int MAX_ANGLE = 36000;
+		const int MIN_ANGLE = 0;
+		const float DIVISION = 100.0f;
+
+		int randomNumber = GetRandomValue(MIN_ANGLE, MAX_ANGLE);
+
+		float angle = randomNumber / DIVISION;
+
+		angle *= DEG2RAD;
+
+		float x = static_cast<float>(cos(angle));
+		float y = static_cast<float>(sin(angle));
+
+		direction.x = x;
+		direction.y = y;
+
+		return direction;
+	}
+
+	Vector2 GenerateRandomPosition()
+	{
+		Vector2 position;
+
+		//Constantes
+		const int MIN_POS = 0;
+		const int MAX_POS = 768;
+
+		//const Vector2 MIN_POS = {-50.0f, 0.0f};
+		//const Vector2 MAX_POS = {-50.0f, 768.0f};
+		//const float DIVISION = 100.0f;
+
+		int randomNumber = GetRandomValue(MIN_POS, MAX_POS);
+
+		position.x = -50.0f;
+		position.y = static_cast<float>(randomNumber);
+
+		return position;
+	}
+
+	void AddEnemyInPool(Enemy enemyPool[MAX_ENEMYS], EnemySize size, Vector2 spawnPos, Vector2 direction)
+	{
+		for (int i = 0; i < MAX_ENEMYS; i++)
+		{
+			if (!enemyPool[i].isActive)
+			{
+				Init(enemyPool[i], size);
+				SetPos(enemyPool[i], spawnPos);
+				SetDireccion(enemyPool[i], direction);
+
+				enemyPool[i].isActive = true;
+
+				break;
+			}
+		}
+	}
 }

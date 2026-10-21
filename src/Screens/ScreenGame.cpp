@@ -53,9 +53,7 @@ namespace Game
 
 	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth);
 
-	Vector2 GenerateRandomDirection();
-
-	Vector2 GenerateRandomPosition();
+	
 	
 
 	void BackgroundInit(Texture2D gameBackground, int screenWidth, int screenHeight)
@@ -221,49 +219,7 @@ namespace Game
 
 	}
 
-	Vector2 GenerateRandomDirection()
-	{
-		Vector2 direction;
-
-		//Constantes
-		const int MAX_ANGLE = 36000;
-		const int MIN_ANGLE = 0;
-		const float DIVISION = 100.0f;
-
-		int randomNumber = GetRandomValue(MIN_ANGLE, MAX_ANGLE);
-
-		float angle = randomNumber / DIVISION;
-
-		angle *= DEG2RAD;
-
-		float x = static_cast<float>(cos(angle)); 
-		float y = static_cast<float>(sin(angle));
-
-		direction.x = x;
-		direction.y = y;
-
-		return direction;
-	}
-
-	Vector2 GenerateRandomPosition()
-	{
-		Vector2 position;
-
-		//Constantes
-		const int MIN_POS = 0;
-		const int MAX_POS = 768;
-
-		//const Vector2 MIN_POS = {-50.0f, 0.0f};
-		//const Vector2 MAX_POS = {-50.0f, 768.0f};
-		//const float DIVISION = 100.0f;
-
-		int randomNumber = GetRandomValue(MIN_POS, MAX_POS);
-
-		position.x = -50.0f;
-		position.y = static_cast<float>(randomNumber);
-
-		return position;
-	}
+	//ACA
 
 	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture)
 	{
@@ -321,6 +277,10 @@ namespace Game
 		// Disparo
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 		{
+
+			Bullet::AddBulletInPool(bulletPool, player.pos, player.direction);
+
+			/*
 			for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 			{
 				if (!bulletPool[i].isActive)
@@ -332,6 +292,7 @@ namespace Game
 					break;
 				}
 			}
+			*/
 		}
 
 		// Actualizacion de las balas
@@ -371,26 +332,29 @@ namespace Game
 
 			while (count < currentEnemyQuantity)
 			{
-				for (int i = 0; i < Enemy::MAX_ENEMYS; i++)
-				{
-					if (!enemyPool[i].isActive)
-					{
-						if (count == currentEnemyQuantity)
-							break;
+				Enemy::AddEnemyInPool(enemyPool, Enemy::EnemySize::Large, Enemy::GenerateRandomPosition(), Enemy::GenerateRandomDirection());
+				count++;
 
-						Enemy::Init(enemyPool[i], Enemy::EnemySize::Large);
+				//for (int i = 0; i < Enemy::MAX_ENEMYS; i++)
+				//{
+				//	if (!enemyPool[i].isActive)
+				//	{
+				//		if (count == currentEnemyQuantity)
+				//			break;
 
-						enemyPool[i].isActive = true;
+				//		Enemy::Init(enemyPool[i], Enemy::EnemySize::Large);
 
-						//Generar direccion random
-						Enemy::SetDireccion(enemyPool[i], GenerateRandomDirection());
+				//		enemyPool[i].isActive = true;
 
-						//Generar posicion random
-						Enemy::SetPos(enemyPool[i], GenerateRandomPosition());
+				//		//Generar direccion random
+				//		Enemy::SetDireccion(enemyPool[i], GenerateRandomDirection());
 
-						count++;
-					}
-				}
+				//		//Generar posicion random
+				//		Enemy::SetPos(enemyPool[i], GenerateRandomPosition());
+
+				//		count++;
+				//	}
+				//}
 			}
 
 			allEnemiesDestroyed = false;
