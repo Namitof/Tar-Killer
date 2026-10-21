@@ -36,6 +36,8 @@ namespace Menu
 	//Font
 	static Font menuFont;
 
+	static Sound select;
+
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight);
 
@@ -398,11 +400,13 @@ namespace Menu
 		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
-	void Init(Texture2D menuBackground, Texture2D logoTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
+	void Init(Texture2D menuBackground, Texture2D logoTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
 	{
 		BackgroundInit(menuBackground, screenWidth, screenHeight);
 
 		LogoInit(logoTexture);
+
+		select = selectSound;
 
 		//font
 		menuFont = font;
@@ -417,6 +421,10 @@ namespace Menu
 
 		//Play
 		Button::Update(playButton, mousePos);
+
+		if (playButton.isMouseOnButton)
+			PlaySound(select);
+
 		if (!playButton.isPressed && playButton.wasPressed)
 		{
 			playButton.isPressed = false;

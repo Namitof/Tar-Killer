@@ -11,7 +11,7 @@ namespace Menu
 	
 	const float BUTTON_OFFSET = 10.0f;
 
-	void Init(Texture2D menuBackground, Texture2D logoTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
+	void Init(Texture2D menuBackground, Texture2D logoTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
 
 	void Update(bool& playButtonPressed, bool& settingsButtonPressed, bool& rulesButtonPressed, bool& creditsButtonPressed, bool& exitButtonPressed);
 

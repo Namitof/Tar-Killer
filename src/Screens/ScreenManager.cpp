@@ -11,6 +11,7 @@
 #include "ScreenRules.h"
 #include "ScreenCredits.h"
 
+#define AUDIO
 
 namespace ScreenManager
 {
@@ -30,6 +31,9 @@ namespace ScreenManager
 	static Texture2D selectButton;
 
 	static Font font;
+
+	static Sound selectSound;
+
 
 
 	//Declaracion de funciones
@@ -65,9 +69,10 @@ namespace ScreenManager
 		defaultButton = LoadTexture("res/buttons/DefaultButton.png");
 		selectButton = LoadTexture("res/buttons/SelectButton.png");
 
+		selectSound = LoadSound("res/sounds/select.wav");
 
 		//Init a cada escena del juego
-		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
 
 		Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 
@@ -217,6 +222,8 @@ namespace ScreenManager
 		UnloadTexture(defaultButton);
 		UnloadTexture(selectButton);
 
+		UnloadSound(selectSound);
+
 		//Delete a todas las escenas
 
 	}
@@ -229,6 +236,10 @@ namespace ScreenManager
 		float deltaTime = 0.0f;
 
 		bool gameIsRuning = true;
+
+#ifdef AUDIO
+		InitAudioDevice();
+#endif // AUDIO
 
 		//Inicialización
 		Init(currentScreen);
@@ -246,6 +257,10 @@ namespace ScreenManager
 		}
 
 		Delete();
+
+#ifdef AUDIO
+		CloseAudioDevice();
+#endif // AUDIO
 
 		//Cierre
 		CloseWindow();
