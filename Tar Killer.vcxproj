@@ -172,6 +172,7 @@
     <ClCompile Include="src\Screens\ScreenGame.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\ScreenMenu.cpp" />
+    <ClCompile Include="src\Screens\ScreenPause.cpp" />
     <ClCompile Include="src\Screens\ScreenRules.cpp" />
     <ClCompile Include="src\Screens\ScreenSettings.cpp" />
     <ClCompile Include="src\Utils\Sprite.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\Screens\ScreenGame.h" />
     <ClInclude Include="src\Screens\ScreenManager.h" />
     <ClInclude Include="src\Screens\ScreenMenu.h" />
+    <ClInclude Include="src\Screens\ScreenPause.h" />
     <ClInclude Include="src\Screens\ScreenRules.h" />
     <ClInclude Include="src\Screens\ScreenSettings.h" />
     <ClInclude Include="src\Utils\Sprite.h" />

@@ -75,6 +75,9 @@
     <ClCompile Include="src\Objects\Enemy.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screens\ScreenPause.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screens\ScreenManager.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="src\Objects\Enemy.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\ScreenPause.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
