@@ -11,7 +11,7 @@ namespace Game
 
 	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture);
 
-	void Update(bool& pauseButtonPressed, float deltaTime, int width, int height);
+	void Update(bool& pauseButtonPressed, bool& isGameOver, float deltaTime, int width, int height);
 
 	void Draw();
 }

@@ -10,6 +10,7 @@
 #include "ScreenSettings.h"
 #include "ScreenRules.h"
 #include "ScreenCredits.h"
+#include "ScreenPause.h"
 
 #define AUDIO
 
@@ -82,6 +83,8 @@ namespace ScreenManager
 
 		Credits::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+		Pause::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	}
 
 	void Update(ScreenOptions& currentScreen, float deltaTime, bool& gameIsRunning)
@@ -92,8 +95,8 @@ namespace ScreenManager
 		bool creditsButtonPressed;
 		bool exitButtonPressed;
 		bool backButtonPresed;
-
 		bool pauseButtonPresed;
+		bool isGameOver;
 
 		switch (currentScreen)
 		{
@@ -124,11 +127,18 @@ namespace ScreenManager
 
 			break;
 		case ScreenManager::ScreenOptions::Play:
-			Game::Update(pauseButtonPresed, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
+			Game::Update(pauseButtonPresed, isGameOver, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 			if (pauseButtonPresed)
 			{
-				currentScreen = ScreenOptions::Menu;
+				currentScreen = ScreenOptions::Pause;
+			
+			}
+			
+			if (isGameOver)
+			{
+				currentScreen = ScreenOptions::Play;
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 			}
 
 			break;
@@ -163,6 +173,18 @@ namespace ScreenManager
 			gameIsRunning = false;
 			break;
 		case ScreenManager::ScreenOptions::Pause:
+			Pause::Update(exitButtonPressed, backButtonPresed);
+
+			if (exitButtonPressed)
+			{
+				currentScreen = ScreenOptions::Menu;
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
+			}
+			else if (backButtonPresed)
+			{
+				currentScreen = ScreenOptions::Play;
+			}
+
 			break;
 		case ScreenManager::ScreenOptions::EndGame:
 			break;
@@ -196,6 +218,8 @@ namespace ScreenManager
 		case ScreenManager::ScreenOptions::Exit:
 			break;
 		case ScreenManager::ScreenOptions::Pause:
+			Game::Draw();
+			Pause::Draw();
 			break;
 		case ScreenManager::ScreenOptions::EndGame:
 			break;

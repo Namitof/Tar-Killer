@@ -246,7 +246,7 @@ namespace Game
 
 	}
 
-	void Update(bool& pauseButtonPressed, float deltaTime, int width, int height)
+	void Update(bool& pauseButtonPressed, bool& isGameOver, float deltaTime, int width, int height)
 	{
 		//HUD
 
@@ -364,7 +364,11 @@ namespace Game
 
 		if (player.lifes <= 0)
 		{
-			pauseButtonPressed = true;
+			isGameOver = true;
+		}
+		else
+		{
+			isGameOver = false;
 		}
 	}
 
