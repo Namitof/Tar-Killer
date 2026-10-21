@@ -57,4 +57,19 @@ namespace Bullet
 	{
 		currentBullet.pos = pos;
 	}
+
+	void AddBulletInPool(Bullet bulletPool[MAX_BULLETS], Vector2 pos, Vector2 dir)
+	{
+		for (int i = 0; i < MAX_BULLETS; i++)
+		{
+			if (!bulletPool[i].isActive)
+			{
+				Init(bulletPool[i]);
+				bulletPool[i].isActive = true;
+				SetPos(bulletPool[i], pos);
+				SetDirection(bulletPool[i], dir);
+				break;
+			}
+		}
+	}
 }

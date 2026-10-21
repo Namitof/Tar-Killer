@@ -36,4 +36,7 @@ namespace Bullet
 	void SetDirection(Bullet& currentBullet, Vector2 direction);
 
 	void SetPos(Bullet& currentBullet, Vector2 pos);
+
+	void AddBulletInPool(Bullet bulletPool[MAX_BULLETS], Vector2 pos, Vector2 dir);
+
 }
