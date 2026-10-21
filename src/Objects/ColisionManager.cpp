@@ -111,6 +111,11 @@ namespace ColisionManager
 							bullets[i].isActive = false;
 							player.score++;
 
+							if (enemys[j].size == Enemy::EnemySize::Large)
+							{
+								enemyCountEliminated++;
+							}
+
 							int quantity = 0;
 
 							Vector2 spawnPos = enemys[j].pos;
@@ -122,9 +127,8 @@ namespace ColisionManager
 								switch (enemys[j].size)
 								{
 								case Enemy::EnemySize::Large:
-									enemyCountEliminated++;
 
-									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Medium, Enemy::GenerateRandomPosition(), Enemy::GenerateRandomDirection()/*{ 1.0f, 1.0f }*/);
+									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Medium, spawnPos, Enemy::GenerateRandomDirection()/*{ 1.0f, 1.0f }*/);
 
 									quantity++;
 
@@ -133,7 +137,7 @@ namespace ColisionManager
 									break;
 
 								case Enemy::EnemySize::Medium:
-									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Small, Enemy::GenerateRandomPosition(), Enemy::GenerateRandomDirection());
+									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Small, spawnPos, Enemy::GenerateRandomDirection());
 									quantity++;
 
 									spawnPos = enemys[j].pos;
@@ -349,9 +353,15 @@ namespace ColisionManager
 						ball.dir.y *= -1;
 					}*/
 
-					player.lifes--;
+					//player.lifes--;
 					enemys[i].isActive = false;
-					enemyCountEliminated++;
+
+					if (enemys[i].size == Enemy::EnemySize::Large)
+					{
+						enemyCountEliminated++;
+
+					}
+					break;
 				}
 			}
 		}
