@@ -275,7 +275,7 @@ namespace Game
 		Player::Update(player, deltaTime);
 
 		// Disparo
-		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && !pauseButton.isMouseOnButton)
 		{
 
 			Bullet::AddBulletInPool(bulletPool, player.pos, player.direction);
@@ -334,27 +334,6 @@ namespace Game
 			{
 				Enemy::AddEnemyInPool(enemyPool, Enemy::EnemySize::Large, Enemy::GenerateRandomPosition(), Enemy::GenerateRandomDirection());
 				count++;
-
-				//for (int i = 0; i < Enemy::MAX_ENEMYS; i++)
-				//{
-				//	if (!enemyPool[i].isActive)
-				//	{
-				//		if (count == currentEnemyQuantity)
-				//			break;
-
-				//		Enemy::Init(enemyPool[i], Enemy::EnemySize::Large);
-
-				//		enemyPool[i].isActive = true;
-
-				//		//Generar direccion random
-				//		Enemy::SetDireccion(enemyPool[i], GenerateRandomDirection());
-
-				//		//Generar posicion random
-				//		Enemy::SetPos(enemyPool[i], GenerateRandomPosition());
-
-				//		count++;
-				//	}
-				//}
 			}
 
 			allEnemiesDestroyed = false;
