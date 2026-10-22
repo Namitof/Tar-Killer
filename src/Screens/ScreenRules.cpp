@@ -50,7 +50,7 @@ namespace Rules
 
 	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
-	void TextInit();
+	void TextInit(int screenHeight);
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
 	{
@@ -232,9 +232,6 @@ namespace Rules
 		textPos.y += OFFSET_POS_Y;
 
 		Text::Init(wavesTextContent, rulesFont, CONTENT_FONT_SIZE, "Destroy larger Tars to trigger bigger waves!", textPos, BUTTON_FONT_SPACING, WHITE);
-
-
-
 	}
 
 	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
