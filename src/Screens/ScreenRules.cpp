@@ -184,7 +184,7 @@ namespace Rules
 
 		//OBJECTIVE TITLE
 		textPos.x = POS_X;
-		textPos.y = static_cast<float>((screenHeight / 12) * 2);
+		textPos.y = static_cast<float>((screenHeight / 20) * 2);
 
 		Text::Init(objetiveTextTitle, rulesFont, TITLE_FONT_SIZE, "OBJECTIVE", textPos, BUTTON_FONT_SPACING, WHITE);
 
@@ -193,7 +193,6 @@ namespace Rules
 		textPos.y += OFFSET_POS_Y;
 
 		Text::Init(objetiveTextContent, rulesFont, CONTENT_FONT_SIZE, "Destroy the Tar Plague and beat your high score!", textPos, BUTTON_FONT_SPACING, WHITE);
-
 
 
 		//ENEMIES TITLE
