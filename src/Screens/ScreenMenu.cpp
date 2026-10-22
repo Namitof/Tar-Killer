@@ -43,7 +43,7 @@ namespace Menu
 
 	void LogoInit(Texture2D logoTexture);
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture);
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, Sound selectSound);
 
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
@@ -106,7 +106,7 @@ namespace Menu
 		Sprite::Init(logo, logoTexture, source, destination, pivot, rotation, tint);
 	}
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture)
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, Sound selectSound)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -181,7 +181,7 @@ namespace Menu
 		//Hitbox playButton
 		hitbox = destination;
 
-		Button::Init(playButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(playButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 
 		buttonPos.y += hitbox.height + BUTTON_OFFSET;
 
@@ -235,7 +235,7 @@ namespace Menu
 		//Hitbox settingsButton
 		hitbox = destination;
 
-		Button::Init(settingsButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(settingsButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 
 		buttonPos.y += hitbox.height + BUTTON_OFFSET;
 
@@ -289,7 +289,7 @@ namespace Menu
 		//Hitbox rulesButton
 		hitbox = destination;
 
-		Button::Init(rulesButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(rulesButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 
 		buttonPos.y += hitbox.height + BUTTON_OFFSET;
 
@@ -343,7 +343,7 @@ namespace Menu
 		//Hitbox creditsButton
 		hitbox = destination;
 
-		Button::Init(creditsButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(creditsButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 
 		buttonPos.y += hitbox.height + BUTTON_OFFSET;
 
@@ -397,7 +397,7 @@ namespace Menu
 		//Hitbox creditsButton
 		hitbox = destination;
 
-		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 	}
 
 	void Init(Texture2D menuBackground, Texture2D logoTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
@@ -411,7 +411,7 @@ namespace Menu
 		//font
 		menuFont = font;
 
-		ButtonsInit(defaultButtonTexture, selectButtonTexture);
+		ButtonsInit(defaultButtonTexture, selectButtonTexture, selectSound);
 	}
 
 	void Update(bool& playButtonPressed, bool& settingsButtonPressed, bool& rulesButtonPressed, bool& creditsButtonPressed, bool& exitButtonPressed)
@@ -421,10 +421,7 @@ namespace Menu
 
 		//Play
 		Button::Update(playButton, mousePos);
-
-		if (playButton.isMouseOnButton)
-			PlaySound(select);
-
+		Button::PlaySound(playButton);
 		if (!playButton.isPressed && playButton.wasPressed)
 		{
 			playButton.isPressed = false;
@@ -438,6 +435,7 @@ namespace Menu
 
 		//Settings
 		Button::Update(settingsButton, mousePos);
+		Button::PlaySound(settingsButton);
 		if (!settingsButton.isPressed && settingsButton.wasPressed)
 		{
 			settingsButton.isPressed = false;
@@ -451,6 +449,7 @@ namespace Menu
 
 		//Rules
 		Button::Update(rulesButton, mousePos);
+		Button::PlaySound(rulesButton);
 		if (!rulesButton.isPressed && rulesButton.wasPressed)
 		{
 			rulesButton.isPressed = false;
@@ -464,6 +463,7 @@ namespace Menu
 
 		//Credits
 		Button::Update(creditsButton, mousePos);
+		Button::PlaySound(creditsButton);
 		if (!creditsButton.isPressed && creditsButton.wasPressed)
 		{
 			creditsButton.isPressed = false;
@@ -477,6 +477,7 @@ namespace Menu
 
 		//Exit
 		Button::Update(exitButton, mousePos);
+		Button::PlaySound(exitButton);
 		if (!exitButton.isPressed && exitButton.wasPressed)
 		{
 			exitButton.isPressed = false;

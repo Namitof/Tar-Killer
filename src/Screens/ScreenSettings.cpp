@@ -36,7 +36,7 @@ namespace Settings
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
 	{
@@ -82,7 +82,7 @@ namespace Settings
 		transparentBackground.height = static_cast<float>(screenHeight);
 	}
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -158,10 +158,10 @@ namespace Settings
 		//Hitbox playButton
 		hitbox = destination;
 
-		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 	}
 
-	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
+	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
 	{
 		BackgroundInit(menuBackground, screenWidth, screenHeight);
 
@@ -170,7 +170,7 @@ namespace Settings
 		//font
 		menuFont = font;
 
-		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
+		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight, selectSound);
 	}
 
 	void Update(bool& backButtonPressed)
@@ -180,6 +180,7 @@ namespace Settings
 
 		//Back
 		Button::Update(backButton, mousePos);
+		Button::PlaySound(backButton);
 		if (!backButton.isPressed && backButton.wasPressed)
 		{
 			backButton.isPressed = false;

@@ -27,6 +27,7 @@ namespace Game
 
 	const int INITIAL_ENEMY_QUANTITY = 2;
 
+	//Recursos
 	static Sprite::Sprite background;
 
 	static Font gameFont;
@@ -46,15 +47,16 @@ namespace Game
 	static bool allEnemiesDestroyed;
 	static Enemy::Enemy enemyPool[Enemy::MAX_ENEMYS];
 
+	static bool drawHud;
 
 	void BackgroundInit(Texture2D gameBackground, int screenWidth, int screenHeight);
 
 	void PlayerInit(Texture2D playerTexture, int screenWidth, int screenHeight);
 
-	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth);
+	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, Sound selectSound);
 
-	
-	
+
+
 
 	void BackgroundInit(Texture2D gameBackground, int screenWidth, int screenHeight)
 	{
@@ -120,7 +122,7 @@ namespace Game
 		Player::Init(player, playerSprite, screenWidth, screenHeight);
 	}
 
-	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth)
+	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, Sound selectSound)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -203,7 +205,7 @@ namespace Game
 		//Hitbox pauseButton
 		hitbox = destination;
 
-		Button::Init(pauseButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(pauseButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 
 		//Lives
 		textPos.x = PAUSE_TEXT_OFFSET_X;
@@ -221,7 +223,7 @@ namespace Game
 
 	//ACA
 
-	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture)
+	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, Sound selectSound)
 	{
 		BackgroundInit(gameBackground, screenWidth, screenHeight);
 
@@ -229,7 +231,7 @@ namespace Game
 
 		gameFont = font;
 
-		HudInit(defaultButtonTexture, selectButtonTexture, screenWidth);
+		HudInit(defaultButtonTexture, selectButtonTexture, screenWidth, selectSound);
 
 		for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 		{
@@ -246,7 +248,7 @@ namespace Game
 
 	}
 
-	void Update(bool& pauseButtonPressed, bool& isGameOver, float deltaTime, int width, int height)
+	void Update(bool& pauseButtonPressed, bool& isGameEnd, float deltaTime, int width, int height)
 	{
 		//HUD
 
@@ -260,6 +262,7 @@ namespace Game
 
 		//Pause
 		Button::Update(pauseButton, mousePos);
+		Button::PlaySound(pauseButton);
 		if (!pauseButton.isPressed && pauseButton.wasPressed)
 		{
 			pauseButton.isPressed = false;
@@ -343,12 +346,23 @@ namespace Game
 
 		if (player.lifes <= 0)
 		{
-			isGameOver = true;
+			isGameEnd = true;
 		}
 		else
 		{
-			isGameOver = false;
+			isGameEnd = false;
 		}
+
+		if (isGameEnd || pauseButtonPressed)
+		{
+			drawHud = false;
+		}
+		else
+		{
+			drawHud = true;
+		}
+
+
 	}
 
 	void Draw()
@@ -378,10 +392,12 @@ namespace Game
 		Player::Draw(player);
 
 		//HUD
-		Button::Draw(pauseButton);
-		Text::Draw(lives);
-		Text::Draw(score);
-
+		if (drawHud)
+		{
+			Button::Draw(pauseButton);
+			Text::Draw(lives);
+			Text::Draw(score);
+		}
 	}
 }
 

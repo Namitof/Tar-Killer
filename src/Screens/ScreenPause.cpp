@@ -36,7 +36,7 @@ namespace Pause
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
 
 	void TextInit(int screenWidth, int screenHeight);
 
@@ -55,7 +55,7 @@ namespace Pause
 		transparentBackground.height = static_cast<float>(screenHeight);
 	}
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -83,7 +83,7 @@ namespace Pause
 		Rectangle hitbox;
 
 		//EXIT
-		//Default Sprite backButton
+		//Default Sprite exitButton
 		source.x = 0.0f;
 		source.y = 0.0f;
 		source.width = static_cast<float>(defaultButtonTexture.width);
@@ -103,7 +103,7 @@ namespace Pause
 
 		Sprite::Init(defaultSprite, defaultButtonTexture, source, destination, pivot, rotation, tint);
 
-		//Select Sprite backButton
+		//Select Sprite exitButton
 		source.x = 0.0f;
 		source.y = 0.0f;
 		source.width = static_cast<float>(selectButtonTexture.width);
@@ -123,20 +123,20 @@ namespace Pause
 
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
-		//Text backButton
+		//Text exitButton
 		textPos.x = destination.x + EXIT_TEXT_OFFSET_X;
 		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
 
 		Text::Init(text, pauseFont, BUTTON_FONT_SIZE, "Exit", textPos, BUTTON_FONT_SPACING, WHITE);
 
-		//Hitbox playButton
+		//Hitbox exitButton
 		hitbox = destination;
 
-		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 
 
 		//CONTINUE
-		//Default Sprite backButton
+		//Default Sprite continueButton
 		source.x = 0.0f;
 		source.y = 0.0f;
 		source.width = static_cast<float>(defaultButtonTexture.width);
@@ -156,7 +156,7 @@ namespace Pause
 
 		Sprite::Init(defaultSprite, defaultButtonTexture, source, destination, pivot, rotation, tint);
 
-		//Select Sprite backButton
+		//Select Sprite continueButton
 		source.x = 0.0f;
 		source.y = 0.0f;
 		source.width = static_cast<float>(selectButtonTexture.width);
@@ -176,16 +176,16 @@ namespace Pause
 
 		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
 
-		//Text backButton
+		//Text continueButton
 		textPos.x = destination.x + CONTINUE_TEXT_OFFSET_X;
 		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
 
 		Text::Init(text, pauseFont, BUTTON_FONT_SIZE, "Continue", textPos, BUTTON_FONT_SPACING, WHITE);
 
-		//Hitbox playButton
+		//Hitbox continueButton
 		hitbox = destination;
 
-		Button::Init(continueButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+		Button::Init(continueButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
 	}
 
 	void TextInit(int screenWidth, int screenHeight)
@@ -195,17 +195,17 @@ namespace Pause
 		textPos.x = static_cast<float>((screenWidth / 13 ) * 5);
 		textPos.y = static_cast<float>((screenHeight / 10) * 3);
 
-		Text::Init(pauseText, pauseFont, TITLE_TEXT_SIZE, "Pause", textPos, BUTTON_FONT_SPACING, WHITE);
+		Text::Init(pauseText, pauseFont, TITLE_TEXT_SIZE, "Pause", textPos, BUTTON_FONT_SPACING, YELLOW);
 	}
 
-	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
+	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
 	{
 		TransparentBackgroundInit(screenWidth, screenHeight);
 
 		//font
 		pauseFont = font;
 
-		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
+		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight, selectSound);
 
 		TextInit(screenWidth, screenHeight);
 	}
@@ -217,6 +217,7 @@ namespace Pause
 
 		//Exit
 		Button::Update(exitButton, mousePos);
+		Button::PlaySound(exitButton);
 		if (!exitButton.isPressed && exitButton.wasPressed)
 		{
 			exitButton.isPressed = false;
@@ -230,6 +231,7 @@ namespace Pause
 
 		//Continue
 		Button::Update(continueButton, mousePos);
+		Button::PlaySound(continueButton);
 		if (!continueButton.isPressed && continueButton.wasPressed)
 		{
 			continueButton.isPressed = false;
