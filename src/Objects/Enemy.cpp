@@ -3,14 +3,19 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "Utils/Sprite.h"
+
 namespace Enemy
 {
-	
+	static Sprite::Sprite enemyLargeSprite;
+	static Sprite::Sprite enemyMediumSprite;
+	static Sprite::Sprite enemySmallSprite;
+
 	void InitSmallEnemy(Enemy& currentEnemy)
 	{
 		currentEnemy.radius = ENEMY_SMALL_RADIUS;
 		currentEnemy.speed = ENEMY_SMALL_SPEED;
-		currentEnemy.sprite;
+		currentEnemy.sprite = enemySmallSprite;
 		currentEnemy.size = EnemySize::Small;
 
 	}
@@ -19,7 +24,7 @@ namespace Enemy
 	{
 		currentEnemy.radius = ENEMY_MEDIUM_RADIUS;
 		currentEnemy.speed = ENEMY_MEDIUM_SPEED;
-		currentEnemy.sprite;
+		currentEnemy.sprite = enemyMediumSprite;
 		currentEnemy.size = EnemySize::Medium;
 
 	}
@@ -28,7 +33,7 @@ namespace Enemy
 	{
 		currentEnemy.radius = ENEMY_LARGE_RADIUS;
 		currentEnemy.speed = ENEMY_LARGE_SPEED;
-		currentEnemy.sprite;
+		currentEnemy.sprite = enemyLargeSprite;
 		currentEnemy.size = EnemySize::Large;
 
 	}
@@ -67,11 +72,17 @@ namespace Enemy
 	{
 		currentEnemy.pos.x += currentEnemy.direction.x * currentEnemy.speed * deltaTime;
 		currentEnemy.pos.y += currentEnemy.direction.y * currentEnemy.speed * deltaTime;
+
+		currentEnemy.sprite.destination.x = currentEnemy.pos.x - currentEnemy.radius;
+		currentEnemy.sprite.destination.y = currentEnemy.pos.y - currentEnemy.radius;
 	}
 
 	void Draw(Enemy currentEnemy)
 	{
+#ifdef _DEBUG
 		DrawCircleV(currentEnemy.pos, currentEnemy.radius, currentEnemy.tint);
+#endif // _DEBUG
+		Sprite::Draw(currentEnemy.sprite);
 	}
 
 	void SetDireccion(Enemy& currentEnemy, Vector2 direction)
@@ -144,4 +155,77 @@ namespace Enemy
 			}
 		}
 	}
+
+	void SetAllSprites(Texture2D largeSprite, Texture2D mediumSprite, Texture2D smallSprite)
+	{
+		//Componentes del struct sprite
+		Rectangle source;
+		Rectangle destination;
+		Vector2 pivot;
+		float rotation;
+		Color tint;
+
+		//Init enemy large
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(largeSprite.width);
+		source.height = static_cast<float>(largeSprite.height);
+
+		destination.x = 0;
+		destination.y = 0;
+		destination.width = static_cast<float>(ENEMY_LARGE_RADIUS * 2);
+		destination.height = static_cast<float>(ENEMY_LARGE_RADIUS * 2);
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(enemyLargeSprite, largeSprite, source, destination, pivot, rotation, tint);
+
+
+		//Init enemy medium
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(mediumSprite.width);
+		source.height = static_cast<float>(mediumSprite.height);
+
+		destination.x = 0;
+		destination.y = 0;
+		destination.width = static_cast<float>(ENEMY_MEDIUM_RADIUS * 2);
+		destination.height = static_cast<float>(ENEMY_MEDIUM_RADIUS * 2);
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(enemyMediumSprite, mediumSprite, source, destination, pivot, rotation, tint);
+
+
+		//Init enemy small
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(smallSprite.width);
+		source.height = static_cast<float>(smallSprite.height);
+
+		destination.x = 0;
+		destination.y = 0;
+		destination.width = static_cast<float>(ENEMY_SMALL_RADIUS * 2);
+		destination.height = static_cast<float>(ENEMY_SMALL_RADIUS * 2);
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(enemySmallSprite, smallSprite, source, destination, pivot, rotation, tint);
+	}
+
 }

@@ -8,9 +8,9 @@ namespace Enemy
 {
 	const int MAX_ENEMYS = 200;
 
-	const float ENEMY_SMALL_RADIUS = 20.0f;
+	const float ENEMY_SMALL_RADIUS = 30.0f;
 
-	const float ENEMY_MEDIUM_RADIUS = 30.0f;
+	const float ENEMY_MEDIUM_RADIUS = 40.0f;
 
 	const float ENEMY_LARGE_RADIUS = 50.0f;
 
@@ -59,6 +59,7 @@ namespace Enemy
 	};
 
 
+
 	void InitSmallEnemy(Enemy& currentEnemy);
 
 	void InitMediumEnemy(Enemy& currentEnemy);
@@ -75,11 +76,11 @@ namespace Enemy
 
 	void SetPos(Enemy& currentEnemy, Vector2 pos);
 
-
 	Vector2 GenerateRandomDirection();
 
 	Vector2 GenerateRandomPosition();
 
-
 	void AddEnemyInPool(Enemy enemyPool[MAX_ENEMYS], EnemySize size, Vector2 spawnPos, Vector2 direction);
+
+	void SetAllSprites(Texture2D largeSprite, Texture2D mediumSprite, Texture2D smallSprite);
 }

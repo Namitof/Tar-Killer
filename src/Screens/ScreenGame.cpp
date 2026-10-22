@@ -223,7 +223,6 @@ namespace Game
 
 	}
 
-	//ACA
 
 	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture)
 	{

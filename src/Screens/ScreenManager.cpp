@@ -13,6 +13,7 @@
 #include "ScreenPause.h"
 #include "ScreenEndGame.h"
 #include "AudioManager.h"
+#include "Objects/Enemy.h"
 
 namespace ScreenManager
 {
@@ -27,6 +28,10 @@ namespace ScreenManager
 	static Texture2D logo;
 
 	static Texture2D player;
+
+	static Texture2D enemyLarge;
+	static Texture2D enemyMedium;
+	static Texture2D enemySmall;
 
 	static Texture2D defaultButton;
 	static Texture2D selectButton;
@@ -76,6 +81,10 @@ namespace ScreenManager
 
 		player = LoadTexture("res/player/player.png");
 
+		enemyLarge = LoadTexture("res/enemy/LargeEnemy.png");
+		enemyMedium = LoadTexture("res/enemy/MediumEnemy.png");
+		enemySmall = LoadTexture("res/enemy/SmallEnemy.png");
+
 		font = LoadFontEx("res/font/SquareAntiqua-Bold.ttf", FONT_SIZE, NULL, 0);
 
 		defaultButton = LoadTexture("res/buttons/DefaultButton.png");
@@ -85,6 +94,8 @@ namespace ScreenManager
 
 		menuMusic = LoadMusicStream("res/musics/menu.wav");
 		gameMusic = LoadMusicStream("res/musics/gameplay.wav");
+
+		Enemy::SetAllSprites(enemyLarge, enemyMedium, enemySmall);
 
 		//Init a cada escena del juego
 		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
