@@ -20,6 +20,11 @@ namespace Menu
 	const float BUTTON_FONT_SIZE = 60.0f;
 	const float BUTTON_FONT_SPACING = 2.0f;
 
+	const float SCORE_TEXT_SIZE = 60.0f;
+
+	const float SCORE_TEXT_OFFSET_X = 80.0f;
+	const float SCORE_TEXT_OFFSET_Y = 90.0f;
+
 	//Background
 	static Sprite::Sprite background;
 
@@ -33,6 +38,10 @@ namespace Menu
 	//Logo
 	static Sprite::Sprite logo;
 
+	//Mejor score
+	static Text::Text maxScore;
+	static int maxScoreValue;
+
 	//Font
 	static Font menuFont;
 
@@ -44,6 +53,8 @@ namespace Menu
 	void LogoInit(Texture2D logoTexture);
 
 	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture);
+
+	void TextInit(int screenHeight);
 
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
@@ -400,6 +411,16 @@ namespace Menu
 		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
+	void TextInit(int screenHeight)
+	{
+		Vector2 textPos;
+
+		textPos.x = static_cast<float>(SCORE_TEXT_OFFSET_X);
+		textPos.y = static_cast<float>(screenHeight - SCORE_TEXT_OFFSET_Y);
+
+		Text::Init(maxScore, menuFont, SCORE_TEXT_SIZE, "Max Score: 0", textPos, BUTTON_FONT_SPACING, YELLOW);
+	}
+
 	void Init(Texture2D menuBackground, Texture2D logoTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		BackgroundInit(menuBackground, screenWidth, screenHeight);
@@ -410,9 +431,11 @@ namespace Menu
 		menuFont = font;
 
 		ButtonsInit(defaultButtonTexture, selectButtonTexture);
+
+		TextInit(screenHeight);
 	}
 
-	void Update(bool& playButtonPressed, bool& settingsButtonPressed, bool& rulesButtonPressed, bool& creditsButtonPressed, bool& exitButtonPressed)
+	void Update(bool& playButtonPressed, bool& settingsButtonPressed, bool& rulesButtonPressed, bool& creditsButtonPressed, bool& exitButtonPressed, int bestScore)
 	{
 		//Actualizar estado de botones
 		Vector2 mousePos = GetMousePosition();
@@ -486,6 +509,9 @@ namespace Menu
 		{
 			exitButtonPressed = false;
 		}
+
+		maxScore.text = "Max Score: " + std::to_string(maxScoreValue);
+		maxScoreValue = bestScore;
 	}
 
 	void Draw()
@@ -497,5 +523,9 @@ namespace Menu
 		Button::Draw(rulesButton);
 		Button::Draw(creditsButton);
 		Button::Draw(exitButton);
+		if (maxScoreValue >= 0)
+		{
+			Text::Draw(maxScore);
+		}
 	}
 }

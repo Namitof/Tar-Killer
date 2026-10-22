@@ -250,7 +250,7 @@ namespace Game
 
 	}
 
-	void Update(bool& pauseButtonPressed, bool& isGameEnd, float deltaTime, int width, int height)
+	void Update(bool& pauseButtonPressed, bool& isGameEnd, float deltaTime, int width, int height, int& currentScore)
 	{
 		//HUD
 
@@ -364,7 +364,7 @@ namespace Game
 			drawHud = true;
 		}
 
-
+		currentScore = player.score;
 	}
 
 	void Draw()

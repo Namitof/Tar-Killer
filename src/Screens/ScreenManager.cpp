@@ -40,6 +40,9 @@ namespace ScreenManager
 	
 	static float masterVolume;
 
+	static int playerMaxScore;
+	static int playerCurrentScore;
+
 	//Declaracion de funciones
 
 	void Init(ScreenOptions& currentScreen);
@@ -58,7 +61,11 @@ namespace ScreenManager
 		InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tar Killer");
 
 		currentScreen = ScreenOptions::Menu;
+		
 		masterVolume = 100.0f;
+
+		playerMaxScore = -1;
+		playerCurrentScore = -1;
 
 		//Carga de recursos y distribucion
 		menuBackground = LoadTexture("res/background/BackgroundMenu.png");
@@ -110,12 +117,12 @@ namespace ScreenManager
 		bool backButtonPresed;
 		bool pauseButtonPresed;
 		bool isGameOver;
-
+		
 		switch (currentScreen)
 		{
 		case ScreenManager::ScreenOptions::Menu:
 			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Menu);
-			Menu::Update(playButtonPressed, settingsButtonPressed, rulesButtonPressed, creditsButtonPressed, exitButtonPressed);
+			Menu::Update(playButtonPressed, settingsButtonPressed, rulesButtonPressed, creditsButtonPressed, exitButtonPressed, playerMaxScore);
 
 			if (playButtonPressed)
 			{
@@ -142,7 +149,7 @@ namespace ScreenManager
 			break;
 		case ScreenManager::ScreenOptions::Play:
 			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Gameplay);
-			Game::Update(pauseButtonPresed, isGameOver, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
+			Game::Update(pauseButtonPresed, isGameOver, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT, playerCurrentScore);
 
 			if (pauseButtonPresed)
 			{
@@ -153,6 +160,11 @@ namespace ScreenManager
 			if (isGameOver)
 			{
 				currentScreen = ScreenOptions::EndGame;
+			}
+
+			if (playerCurrentScore > playerMaxScore)
+			{
+				playerMaxScore = playerCurrentScore;
 			}
 
 			break;
@@ -211,7 +223,7 @@ namespace ScreenManager
 			break;
 		case ScreenManager::ScreenOptions::EndGame:
 			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::None);
-			EndGame::Update(exitButtonPressed, playButtonPressed);
+			EndGame::Update(exitButtonPressed, playButtonPressed, playerCurrentScore);
 
 			if (playButtonPressed)
 			{
