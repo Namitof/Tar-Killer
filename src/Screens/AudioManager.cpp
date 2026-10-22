@@ -9,6 +9,7 @@ namespace AudioManager
 	//Sonidos
 	static Sound select;
 	static Sound shoot;
+	static Sound enemyHit;
 
 	//Musica
 	static Music menu;
@@ -27,10 +28,11 @@ namespace AudioManager
 	}
 
 
-	void Init(Sound selectSound, Sound shootSound, Music menuMusic, Music gameplayMusic)
+	void Init(Sound selectSound, Sound shootSound, Sound enemyHitSound, Music menuMusic, Music gameplayMusic)
 	{
 		select = selectSound;
 		shoot = shootSound;
+		enemyHit = enemyHitSound;
 
 		menu = menuMusic;
 		gameplay = gameplayMusic;
@@ -53,6 +55,14 @@ namespace AudioManager
 		if (!IsSoundPlaying(shoot))
 		{
 			PlaySound(shoot);
+		}
+	}
+
+	void PlayEnemyHitSound()
+	{
+		if (!IsSoundPlaying(enemyHit))
+		{
+			PlaySound(enemyHit);
 		}
 	}
 

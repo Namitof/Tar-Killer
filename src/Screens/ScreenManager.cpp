@@ -43,6 +43,7 @@ namespace ScreenManager
 
 	static Sound selectSound;
 	static Sound shootSound;
+	static Sound enemyHitSound;
 
 	static Music menuMusic;
 	static Music gameMusic;
@@ -98,6 +99,7 @@ namespace ScreenManager
 
 		selectSound = LoadSound("res/sounds/select.wav");
 		shootSound = LoadSound("res/sounds/shoot.wav");
+		enemyHitSound = LoadSound("res/sounds/hit.wav");
 
 		menuMusic = LoadMusicStream("res/musics/menu.wav");
 		gameMusic = LoadMusicStream("res/musics/gameplay.wav");
@@ -122,7 +124,7 @@ namespace ScreenManager
 
 
 
-		AudioManager::Init(selectSound, shootSound, menuMusic, gameMusic);
+		AudioManager::Init(selectSound, shootSound, enemyHitSound, menuMusic, gameMusic);
 
 	}
 
@@ -324,6 +326,7 @@ namespace ScreenManager
 
 		UnloadSound(selectSound);
 		UnloadSound(shootSound);
+		UnloadSound(enemyHitSound);
 
 		UnloadMusicStream(menuMusic);
 		UnloadMusicStream(gameMusic);

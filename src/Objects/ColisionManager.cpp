@@ -1,14 +1,13 @@
 #include "ColisionManager.h"
 
-#include <raylib.h>
-
 #include <cmath>
 
+#include <raylib.h>
+
 #include "Player.h"
-
 #include "Bullet.h"
-
 #include "Enemy.h"
+#include "Screens/AudioManager.h"
 
 namespace ColisionManager
 {
@@ -108,6 +107,8 @@ namespace ColisionManager
 						inCollision = CollisionCircleCircle(enemys[j].pos, enemys[j].radius, bullets[i].pos, bullets[i].radius);
 						if (inCollision)
 						{
+							AudioManager::PlayEnemyHitSound();
+
 							enemys[j].isActive = false;
 							bullets[i].isActive = false;
 							player.score++;
@@ -184,7 +185,6 @@ namespace ColisionManager
 						if (enemys[i].size == Enemy::EnemySize::Large)
 						{
 							enemyCountEliminated++;
-
 						}
 						break;
 					}
