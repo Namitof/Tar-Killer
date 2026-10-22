@@ -169,6 +169,7 @@
     <ClCompile Include="src\Objects\Enemy.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
     <ClCompile Include="src\Screens\ScreenCredits.cpp" />
+    <ClCompile Include="src\Screens\ScreenEndGame.cpp" />
     <ClCompile Include="src\Screens\ScreenGame.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\ScreenMenu.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\Objects\Enemy.h" />
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\Screens\ScreenCredits.h" />
+    <ClInclude Include="src\Screens\ScreenEndGame.h" />
     <ClInclude Include="src\Screens\ScreenGame.h" />
     <ClInclude Include="src\Screens\ScreenManager.h" />
     <ClInclude Include="src\Screens\ScreenMenu.h" />
