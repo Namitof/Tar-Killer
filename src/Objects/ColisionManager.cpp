@@ -136,7 +136,7 @@ namespace ColisionManager
 									quantity++;
 
 									spawnPos = enemys[j].pos;
-									spawnPos.x -= enemys[j].radius - 10;
+									spawnPos.x -= (enemys[j].radius - 10);
 									break;
 
 								case Enemy::EnemySize::Medium:
@@ -145,7 +145,7 @@ namespace ColisionManager
 									quantity++;
 
 									spawnPos = enemys[j].pos;
-									spawnPos.x -= enemys[j].radius - 10;
+									spawnPos.x -= (enemys[j].radius - 10);
 
 									break;
 
@@ -169,96 +169,29 @@ namespace ColisionManager
 		}
 
 		// Chequeo colision del player con los enemigos
-		for (int i = 0; i < Enemy::MAX_ENEMYS; i++)
+		if (!player.isImmortal)
 		{
-			if (enemys[i].isActive)
+			for (int i = 0; i < Enemy::MAX_ENEMYS; i++)
 			{
-				if (CollisionCircleCircle(player.pos, player.radius, enemys[i].pos, enemys[i].radius))
+				if (enemys[i].isActive)
 				{
-					/*player.pos.x += enemys[i].direction.x;
-					player.pos.y += enemys[i].direction.y;
-
-					player.lifes--;*/
-
-					float obstacleCenterX = enemys[i].pos.x;
-					float obstacleCenterY = enemys[i].pos.y;
-
-					float obstacleMinX = obstacleCenterX - enemys[i].radius;
-					float obstacleMaxX = obstacleCenterX + enemys[i].radius;
-					float obstacleMinY = obstacleCenterY - enemys[i].radius;
-					float obstacleMaxY = obstacleCenterY + enemys[i].radius;
-
-					float maxX = player.pos.x + player.radius;
-					float minX = player.pos.x - player.radius;
-
-					float maxY = player.pos.y + player.radius;
-					float minY = player.pos.y - player.radius;
-
-					float diffX = 0.0f;
-					float diffY = 0.0f;
-
-					if (maxX < obstacleCenterX) //golpea de izquierda
+					if (CollisionCircleCircle(player.pos, player.radius, enemys[i].pos, enemys[i].radius))
 					{
-						diffX = obstacleMinX - maxX;
+						player.lifes--;
+						enemys[i].isActive = false;
+						player.isImmortal = true;
+
+						if (enemys[i].size == Enemy::EnemySize::Large)
+						{
+							enemyCountEliminated++;
+
+						}
+						break;
 					}
-					else if (minX > obstacleCenterX) //golpea de derecha
-					{
-						diffX = obstacleMaxX - minX;
-					}
-
-					if (minY > obstacleCenterY) //golpea de arriba
-					{
-						diffY = maxY - obstacleMaxY;
-					}
-					else if (maxY < obstacleCenterY) //golpea de abajo
-					{
-						diffY = minY - obstacleMinY;
-					}
-
-					/*float absDiffX = abs(diffX);
-					float absDiffY = abs(diffY);
-
-					if (absDiffX < absDiffY)
-					{
-						player.pos.x += diffX;
-					}
-					else
-					{
-						player.pos.y += diffY;
-					}*/
-					player.pos.x += diffX;
-					
-					player.pos.y += diffY;
-
-
-					//int margin = 2;
-
-					/*if (player.pos.x >= obstacles[i][j].hitbox.minPosition.x - margin && player.pos.x <= obstacles[i][j].hitbox.minPosition.x + obstacles[i][j].hitbox.width + margin)
-					{
-						ball.dir.y *= -1;
-					}
-					else if (player.pos.y >= obstacles[i][j].hitbox.minPosition.y - margin && player.pos.y <= obstacles[i][j].hitbox.minPosition.y + obstacles[i][j].hitbox.height + margin)
-					{
-						ball.dir.x *= -1;
-					}
-					else
-					{
-						ball.dir.x *= -1;
-						ball.dir.y *= -1;
-					}*/
-
-					//player.lifes--;
-					enemys[i].isActive = false;
-
-					if (enemys[i].size == Enemy::EnemySize::Large)
-					{
-						enemyCountEliminated++;
-
-					}
-					break;
 				}
 			}
 		}
+		
 
 	}
 }

@@ -12,6 +12,8 @@ namespace Player
 
     const int PLAYER_LIFES = 3;
 
+    const float MAX_DURATION_IMMORTALITY = 4.5f;
+
 	struct Player
 	{
         Vector2 pos;
@@ -37,6 +39,12 @@ namespace Player
 
         //Sprite
         Sprite::Sprite sprite;
+
+        //Control para estado de inmortalidad
+        bool isImmortal;
+        float count;
+        float maxCount;
+
 	};
 
     void Init(Player& player, Sprite::Sprite playerSprite, int screenWidth, int screenHeight);

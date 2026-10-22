@@ -278,6 +278,19 @@ namespace Game
 		// PARTIDA
 		Player::Update(player, deltaTime);
 
+		if (player.isImmortal)
+		{
+			if (player.count >= player.maxCount)
+			{
+				player.isImmortal = false;
+				player.count = 0.0f;;
+			}
+			else
+			{
+				player.count += deltaTime;
+			}
+		}
+
 		// Disparo
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && !pauseButton.isMouseOnButton)
 		{
@@ -390,6 +403,22 @@ namespace Game
 		}
 
 		//Player
+		if (player.isImmortal)
+		{
+			if (static_cast<int>(player.count) % 2 == 0)
+			{
+				player.sprite.tint = RED;
+			}
+			else
+			{
+				player.sprite.tint = WHITE;
+			}
+		}
+		else
+		{
+			player.sprite.tint = WHITE;
+		}
+
 		Player::Draw(player);
 
 		//HUD
@@ -401,7 +430,3 @@ namespace Game
 		}
 	}
 }
-
-//Centrar nave en el centro
-
-//Pausa y HUD

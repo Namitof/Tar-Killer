@@ -41,6 +41,10 @@ namespace Player
 
 		player.sprite.pivot = player.pivot;
 		player.sprite.destination = player.spriteRectangle;
+
+		player.isImmortal = false;
+		player.count = 0.0f;;
+		player.maxCount = MAX_DURATION_IMMORTALITY;
 	}
 
 	void Move(Player& player, float deltaTime)
