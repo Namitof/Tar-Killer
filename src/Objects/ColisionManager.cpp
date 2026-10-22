@@ -44,7 +44,7 @@ namespace ColisionManager
 		return ((sumRadius * sumRadius) >= c);
 	}
 
-	void ScreenBorderCollision(float& posX, float& posY, float radius, int width, int height)
+	void ScreenBorderCollision(float& posX, float& posY, float radius, int width, int height, bool playSound)
 	{
 		const int MIN_POS_X = 0;
 		const int MIN_POS_Y = 0;
@@ -53,33 +53,41 @@ namespace ColisionManager
 		if (posX + radius < MIN_POS_X)
 		{
 			posX = width + radius;
+			if (playSound)
+				AudioManager::PlayTeleportSound();
 		}
 		else if (posX - radius > width)
 		{
 			posX = MIN_POS_X - radius;
+			if (playSound)
+				AudioManager::PlayTeleportSound();
 		}
 
 		if (posY + radius < MIN_POS_Y)
 		{
 			posY = height + radius;
+			if (playSound)
+				AudioManager::PlayTeleportSound();
 		}
 		else if (posY - radius > height)
 		{
 			posY = MIN_POS_Y - radius;
+			if (playSound)
+				AudioManager::PlayTeleportSound();
 		}
 	}
 
 	void CheckColisions(Player::Player& player, Bullet::Bullet bullets[Bullet::MAX_BULLETS], Enemy::Enemy enemys[Enemy::MAX_ENEMYS], int width, int height, int& enemyCountEliminated)
 	{
 		// Chequeo colision de player con los bordes de la pantalla
-		ScreenBorderCollision(player.pos.x, player.pos.y, player.radius, width, height);
+		ScreenBorderCollision(player.pos.x, player.pos.y, player.radius, width, height, true);
 
 		// Chequeo colision de bullets con los bordes de la pantalla
 		for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 		{
 			if (bullets[i].isActive)
 			{
-				ScreenBorderCollision(bullets[i].pos.x, bullets[i].pos.y, bullets[i].radius, width, height);
+				ScreenBorderCollision(bullets[i].pos.x, bullets[i].pos.y, bullets[i].radius, width, height, false);
 			}
 		}
 
@@ -88,7 +96,7 @@ namespace ColisionManager
 		{
 			if (enemys[i].isActive)
 			{
-				ScreenBorderCollision(enemys[i].pos.x, enemys[i].pos.y, enemys[i].radius, width, height);
+				ScreenBorderCollision(enemys[i].pos.x, enemys[i].pos.y, enemys[i].radius, width, height, false);
 			}
 		}
 

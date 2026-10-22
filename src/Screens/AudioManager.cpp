@@ -11,6 +11,7 @@ namespace AudioManager
 	static Sound shoot;
 	static Sound enemyHit;
 	static Sound gameOver;
+	static Sound teleport;
 
 	//Musica
 	static Music menu;
@@ -29,12 +30,13 @@ namespace AudioManager
 	}
 
 
-	void Init(Sound selectSound, Sound shootSound, Sound enemyHitSound, Sound gameOverSound, Music menuMusic, Music gameplayMusic)
+	void Init(Sound selectSound, Sound shootSound, Sound enemyHitSound, Sound gameOverSound, Sound teleportSound, Music menuMusic, Music gameplayMusic)
 	{
 		select = selectSound;
 		shoot = shootSound;
 		enemyHit = enemyHitSound;
 		gameOver = gameOverSound;
+		teleport = teleportSound;
 
 		menu = menuMusic;
 		gameplay = gameplayMusic;
@@ -73,6 +75,14 @@ namespace AudioManager
 		if (!IsSoundPlaying(gameOver))
 		{
 			PlaySound(gameOver);
+		}
+	}
+
+	void PlayTeleportSound()
+	{
+		if (!IsSoundPlaying(teleport))
+		{
+			PlaySound(teleport);
 		}
 	}
 
