@@ -199,15 +199,15 @@ namespace EndGame
 	{
 		Vector2 textPos;
 
-		textPos.x = static_cast<float>((screenWidth / 13) * 5);
+		textPos.x = static_cast<float>((screenWidth / 15) * 4);
 		textPos.y = static_cast<float>((screenHeight / 10) * 3);
 
 		Text::Init(endText, endFont, TITLE_TEXT_SIZE, "GAME OVER", textPos, BUTTON_FONT_SPACING, RED);
 
-		textPos.x = static_cast<float>((screenWidth / 13) * 5);
-		textPos.y = static_cast<float>((screenHeight / 10) * 4);
+		textPos.x = static_cast<float>((screenWidth / 15) * 4);
+		textPos.y = static_cast<float>((screenHeight / 10) * 5);
 
-		Text::Init(scoreText, endFont, TITLE_TEXT_SIZE, "Score: 0", textPos, BUTTON_FONT_SPACING, WHITE);
+		Text::Init(scoreText, endFont, SCORE_TEXT_SIZE, "Score: 0", textPos, BUTTON_FONT_SPACING, WHITE);
 	}
 
 	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
@@ -222,7 +222,7 @@ namespace EndGame
 		TextInit(screenWidth, screenHeight);
 	}
 
-	void Update(bool& exitButtonPressed, bool& retryButtonPressed)
+	void Update(bool& exitButtonPressed, bool& retryButtonPressed, int playerScore)
 	{
 		//Actualizar estado de botones
 		Vector2 mousePos = GetMousePosition();
@@ -255,7 +255,7 @@ namespace EndGame
 			retryButtonPressed = false;
 		}
 
-		scoreText.text = "Score: " + std::to_string(10);
+		scoreText.text = "Score: " + std::to_string(playerScore);
 
 	}
 
