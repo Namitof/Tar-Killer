@@ -121,22 +121,39 @@ namespace Enemy
 
 	Vector2 GenerateRandomPosition()
 	{
-		Vector2 position;
+		const int SCREEN_WIDTH = 1024;
+		const int SCREEN_HEIGHT = 768;
 
-		//Constantes
-		const int MIN_POS = 0;
-		const int MAX_POS = 768;
+		const float OFFSET = 50.0f;
 
-		//const Vector2 MIN_POS = {-50.0f, 0.0f};
-		//const Vector2 MAX_POS = {-50.0f, 768.0f};
-		//const float DIVISION = 100.0f;
+		enum class SIDES
+		{
+			None = -1,
+			Left,
+			Right,
+			Top,
+			Bottom
+		};
 
-		int randomNumber = GetRandomValue(MIN_POS, MAX_POS);
+		SIDES side = static_cast<SIDES>(GetRandomValue(static_cast<int>(SIDES::Left), static_cast<int>(SIDES::Bottom)));
 
-		position.x = -50.0f;
-		position.y = static_cast<float>(randomNumber);
+		switch (side)
+		{
+		case SIDES::Left:
+			return { -OFFSET, static_cast<float>(GetRandomValue(0, SCREEN_HEIGHT)) };
 
-		return position;
+		case SIDES::Right:
+			return { static_cast<float>(SCREEN_WIDTH + OFFSET), static_cast<float>(GetRandomValue(0, SCREEN_HEIGHT)) };
+
+		case SIDES::Top:
+			return { static_cast<float>(GetRandomValue(0, SCREEN_WIDTH)), -OFFSET };
+
+		case SIDES::Bottom:
+			return { static_cast<float>(GetRandomValue(0, SCREEN_WIDTH)), static_cast<float>(SCREEN_HEIGHT + OFFSET) };
+
+		default:
+			return { 0.0f, 0.0f };
+		}
 	}
 
 	void AddEnemyInPool(Enemy enemyPool[MAX_ENEMYS], EnemySize size, Vector2 spawnPos, Vector2 direction)
