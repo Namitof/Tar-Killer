@@ -18,6 +18,9 @@ namespace Rules
 
 	const float BACKGROUND_ALPHA_VALUE = 180.0f;
 
+	const float TITLE_FONT_SIZE = 50.0f;
+	const float CONTENT_FONT_SIZE = 40.0f;
+
 	//Background
 	static Sprite::Sprite background;
 
@@ -28,8 +31,18 @@ namespace Rules
 	static Button::Button backButton;
 
 	//Font
-	static Font menuFont;
+	static Font rulesFont;
 
+	static Text::Text objetiveTextTitle;
+	static Text::Text objetiveTextContent;
+
+	static Text::Text enemiesTextTitle;
+	static Text::Text enemiesTextContent1;
+	static Text::Text enemiesTextContent2;
+	static Text::Text enemiesTextContent3;
+
+	static Text::Text wavesTextTitle;
+	static Text::Text wavesTextContent;
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight);
 
@@ -37,6 +50,7 @@ namespace Rules
 
 	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
+	void TextInit();
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
 	{
@@ -153,12 +167,74 @@ namespace Rules
 		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
 		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
 
-		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Back", textPos, BUTTON_FONT_SPACING, WHITE);
+		Text::Init(text, rulesFont, BUTTON_FONT_SIZE, "Back", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox playButton
 		hitbox = destination;
 
 		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+	}
+
+	void TextInit(int screenHeight)
+	{
+		const int POS_X = 20;
+		const int OFFSET_POS_Y = 60;
+		
+		Vector2 textPos;
+
+		//OBJECTIVE TITLE
+		textPos.x = POS_X;
+		textPos.y = static_cast<float>((screenHeight / 12) * 2);
+
+		Text::Init(objetiveTextTitle, rulesFont, TITLE_FONT_SIZE, "OBJECTIVE", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//OBJECTIVE CONTENT
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(objetiveTextContent, rulesFont, CONTENT_FONT_SIZE, "Destroy the Tar Plague and beat your high score!", textPos, BUTTON_FONT_SPACING, WHITE);
+
+
+
+		//ENEMIES TITLE
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(enemiesTextTitle, rulesFont, TITLE_FONT_SIZE, "ENEMIES", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//ENEMIES CONTENT 1
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(enemiesTextContent1, rulesFont, CONTENT_FONT_SIZE, " - Purple: Splits into two Medium Tars when destroyed.", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//ENEMIES CONTENT 2
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(enemiesTextContent2, rulesFont, CONTENT_FONT_SIZE, " - Green: Splits into two Small Tars when destroyed.", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//ENEMIES CONTENT 3
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(enemiesTextContent3, rulesFont, CONTENT_FONT_SIZE, " - Yellow: Disappears when destroyed.", textPos, BUTTON_FONT_SPACING, WHITE);
+
+
+		//WAVES TITLE
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(wavesTextTitle, rulesFont, TITLE_FONT_SIZE, "WAVES", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//WAVES CONTENT
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(wavesTextContent, rulesFont, CONTENT_FONT_SIZE, "Destroy larger Tars to trigger bigger waves!", textPos, BUTTON_FONT_SPACING, WHITE);
+
+
+
 	}
 
 	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
@@ -168,7 +244,9 @@ namespace Rules
 		TransparentBackgroundInit(screenWidth, screenHeight);
 
 		//font
-		menuFont = font;
+		rulesFont = font;
+		
+		TextInit(screenHeight);
 
 		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
 	}
@@ -200,6 +278,15 @@ namespace Rules
 		Sprite::Draw(background);
 
 		DrawRectangleRec(transparentBackground, transparent);
+
+		Text::Draw(objetiveTextTitle);
+		Text::Draw(objetiveTextContent);
+		Text::Draw(enemiesTextTitle);
+		Text::Draw(enemiesTextContent1);
+		Text::Draw(enemiesTextContent2);
+		Text::Draw(enemiesTextContent3);
+		Text::Draw(wavesTextTitle);
+		Text::Draw(wavesTextContent);
 
 		Button::Draw(backButton);
 	}
