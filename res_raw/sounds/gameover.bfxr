@@ -1,0 +1,19 @@
+{
+  "synth_type": "Riftr",
+  "version": "1.0.0",
+  "file_name": "GravityWell2",
+  "params": {
+    "masterVolume": 0.5,
+    "seed": 0.3416231721664589,
+    "excitation": 1,
+    "duration": 1.9070150820039125,
+    "pitch": 0.3944978741780617,
+    "bend": -0.7884343020852481,
+    "space": 0.5909416370330223,
+    "feedback": 0.708546056590416,
+    "dispersion": 0.7966505275895552,
+    "motion": 0.1672794483312539,
+    "field": 0.7407112256933953,
+    "reverse": 0.0173904098954569
+  }
+}

@@ -44,6 +44,7 @@ namespace ScreenManager
 	static Sound selectSound;
 	static Sound shootSound;
 	static Sound enemyHitSound;
+	static Sound gameOverSound;
 
 	static Music menuMusic;
 	static Music gameMusic;
@@ -100,12 +101,15 @@ namespace ScreenManager
 		selectSound = LoadSound("res/sounds/select.wav");
 		shootSound = LoadSound("res/sounds/shoot.wav");
 		enemyHitSound = LoadSound("res/sounds/hit.wav");
+		gameOverSound = LoadSound("res/sounds/gameover.wav");
 
 		menuMusic = LoadMusicStream("res/musics/menu.wav");
 		gameMusic = LoadMusicStream("res/musics/gameplay.wav");
 
 		Enemy::SetAllSprites(enemyLarge, enemyMedium, enemySmall);
 		Bullet::SetSprite(bullet);
+
+		AudioManager::Init(selectSound, shootSound, enemyHitSound, gameOverSound, menuMusic, gameMusic);
 
 		//Init a cada escena del juego
 		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -121,11 +125,6 @@ namespace ScreenManager
 		Pause::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		EndGame::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-
-
-		AudioManager::Init(selectSound, shootSound, enemyHitSound, menuMusic, gameMusic);
-
 	}
 
 	void Update(ScreenOptions& currentScreen, float deltaTime, bool& gameIsRunning)
@@ -180,6 +179,7 @@ namespace ScreenManager
 			
 			if (isGameOver)
 			{
+				AudioManager::PlayGameOverSound();
 				currentScreen = ScreenOptions::EndGame;
 			}
 
@@ -327,6 +327,7 @@ namespace ScreenManager
 		UnloadSound(selectSound);
 		UnloadSound(shootSound);
 		UnloadSound(enemyHitSound);
+		UnloadSound(gameOverSound);
 
 		UnloadMusicStream(menuMusic);
 		UnloadMusicStream(gameMusic);
