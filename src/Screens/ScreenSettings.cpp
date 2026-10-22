@@ -16,6 +16,8 @@ namespace Settings
 	const float BUTTON_FONT_SIZE = 60.0f;
 	const float BUTTON_FONT_SPACING = 2.0f;
 
+	const float BACKGROUND_ALPHA_VALUE = 180.0f;
+
 	//Background
 	static Sprite::Sprite background;
 
@@ -72,7 +74,7 @@ namespace Settings
 	void TransparentBackgroundInit(int screenWidth, int screenHeight)
 	{
 		//Init a transparentBackground
-		transparent.a = static_cast<unsigned char>(100.0f);
+		transparent.a = static_cast<unsigned char>(BACKGROUND_ALPHA_VALUE);
 		transparent.b = static_cast<unsigned char>(0.0f);
 		transparent.g = static_cast<unsigned char>(0.0f);
 		transparent.r = static_cast<unsigned char>(0.0f);
