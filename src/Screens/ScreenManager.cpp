@@ -303,6 +303,10 @@ namespace ScreenManager
 
 		UnloadTexture(player);
 
+		UnloadTexture(enemyLarge);
+		UnloadTexture(enemyMedium);
+		UnloadTexture(enemySmall);
+
 		UnloadFont(font);
 
 		UnloadTexture(defaultButton);
