@@ -186,6 +186,7 @@ namespace ColisionManager
 				{
 					if (CollisionCircleCircle(player.pos, player.radius, enemys[i].pos, enemys[i].radius))
 					{
+						AudioManager::PlayPlayerHitSound();
 						player.lifes--;
 						enemys[i].isActive = false;
 						player.isImmortal = true;
