@@ -2,9 +2,10 @@
 
 #include <raylib.h>
 
+#include "AudioManager.h"
+
 #include "Utils/Sprite.h"
 #include "Utils/Text.h"
-
 #include "Objects/Button.h"
 
 namespace Pause
@@ -57,7 +58,7 @@ namespace Pause
 		transparentBackground.height = static_cast<float>(screenHeight);
 	}
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -134,7 +135,7 @@ namespace Pause
 		//Hitbox exitButton
 		hitbox = destination;
 
-		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
+		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 
 
 		//CONTINUE
@@ -187,7 +188,7 @@ namespace Pause
 		//Hitbox continueButton
 		hitbox = destination;
 
-		Button::Init(continueButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
+		Button::Init(continueButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
 	void TextInit(int screenWidth, int screenHeight)
@@ -200,14 +201,14 @@ namespace Pause
 		Text::Init(pauseText, pauseFont, TITLE_TEXT_SIZE, "Pause", textPos, BUTTON_FONT_SPACING, YELLOW);
 	}
 
-	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
+	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		TransparentBackgroundInit(screenWidth, screenHeight);
 
 		//font
 		pauseFont = font;
 
-		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight, selectSound);
+		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
 
 		TextInit(screenWidth, screenHeight);
 	}
@@ -219,7 +220,7 @@ namespace Pause
 
 		//Exit
 		Button::Update(exitButton, mousePos);
-		Button::PlaySound(exitButton);
+		AudioManager::PlaySelectButtonSound(exitButton);
 		if (!exitButton.isPressed && exitButton.wasPressed)
 		{
 			exitButton.isPressed = false;
@@ -233,7 +234,7 @@ namespace Pause
 
 		//Continue
 		Button::Update(continueButton, mousePos);
-		Button::PlaySound(continueButton);
+		AudioManager::PlaySelectButtonSound(continueButton);
 		if (!continueButton.isPressed && continueButton.wasPressed)
 		{
 			continueButton.isPressed = false;

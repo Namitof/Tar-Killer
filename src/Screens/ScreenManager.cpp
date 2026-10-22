@@ -12,6 +12,7 @@
 #include "ScreenCredits.h"
 #include "ScreenPause.h"
 #include "ScreenEndGame.h"
+#include "AudioManager.h"
 
 namespace ScreenManager
 {
@@ -34,7 +35,10 @@ namespace ScreenManager
 
 	static Sound selectSound;
 
-
+	static Music menuMusic;
+	static Music gameMusic;
+	
+	static float masterVolume;
 
 	//Declaracion de funciones
 
@@ -54,6 +58,7 @@ namespace ScreenManager
 		InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tar Killer");
 
 		currentScreen = ScreenOptions::Menu;
+		masterVolume = 100.0f;
 
 		//Carga de recursos y distribucion
 		menuBackground = LoadTexture("res/background/BackgroundMenu.png");
@@ -71,20 +76,27 @@ namespace ScreenManager
 
 		selectSound = LoadSound("res/sounds/select.wav");
 
+		menuMusic = LoadMusicStream("res/musics/menu.wav");
+		gameMusic = LoadMusicStream("res/musics/gameplay.wav");
+
 		//Init a cada escena del juego
-		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
+		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton, selectSound);
+		Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 
-		Settings::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
+		Settings::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		Rules::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
+		Rules::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		Credits::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
+		Credits::Init(optionsBackground, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		Pause::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
+		Pause::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		EndGame::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT, selectSound);
+		EndGame::Init(font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
+
+		AudioManager::Init(selectSound, menuMusic, gameMusic);
 
 	}
 
@@ -102,12 +114,13 @@ namespace ScreenManager
 		switch (currentScreen)
 		{
 		case ScreenManager::ScreenOptions::Menu:
+			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Menu);
 			Menu::Update(playButtonPressed, settingsButtonPressed, rulesButtonPressed, creditsButtonPressed, exitButtonPressed);
 
 			if (playButtonPressed)
 			{
 				currentScreen = ScreenOptions::Play;
-				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton, selectSound);
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 			}
 			else if (settingsButtonPressed)
 			{
@@ -128,6 +141,7 @@ namespace ScreenManager
 
 			break;
 		case ScreenManager::ScreenOptions::Play:
+			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Gameplay);
 			Game::Update(pauseButtonPresed, isGameOver, deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 			if (pauseButtonPresed)
@@ -143,6 +157,7 @@ namespace ScreenManager
 
 			break;
 		case ScreenManager::ScreenOptions::Settings:
+			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Menu);
 			Settings::Update(backButtonPresed);
 
 			if (backButtonPresed)
@@ -152,6 +167,7 @@ namespace ScreenManager
 
 			break;
 		case ScreenManager::ScreenOptions::Rules:
+			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Menu);
 			Rules::Update(backButtonPresed);
 
 			if (backButtonPresed)
@@ -161,6 +177,7 @@ namespace ScreenManager
 
 			break;
 		case ScreenManager::ScreenOptions::Credits:
+			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Menu);
 			Credits::Update(backButtonPresed);
 
 			if (backButtonPresed)
@@ -173,31 +190,38 @@ namespace ScreenManager
 			gameIsRunning = false;
 			break;
 		case ScreenManager::ScreenOptions::Pause:
+			//AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::Gameplay);
+			AudioManager::PauseScreenMusic(AudioManager::ScreenMusic::Gameplay);
 			Pause::Update(exitButtonPressed, backButtonPresed);
 
 			if (exitButtonPressed)
 			{
 				currentScreen = ScreenOptions::Menu;
-				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton, selectSound);
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
+				AudioManager::ResumeScreenMusic(AudioManager::ScreenMusic::Gameplay);
+
 			}
 			else if (backButtonPresed)
 			{
 				currentScreen = ScreenOptions::Play;
+				AudioManager::ResumeScreenMusic(AudioManager::ScreenMusic::Gameplay);
+
 			}
 
 			break;
 		case ScreenManager::ScreenOptions::EndGame:
+			AudioManager::PlayScreenMusic(AudioManager::ScreenMusic::None);
 			EndGame::Update(exitButtonPressed, playButtonPressed);
 
 			if (playButtonPressed)
 			{
 				currentScreen = ScreenOptions::Play;
-				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton, selectSound);
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 			}
 			else if (exitButtonPressed)
 			{
 				currentScreen = ScreenOptions::Menu;
-				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton, selectSound);
+				Game::Init(gameBackground, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, defaultButton, selectButton);
 			}
 
 			break;
@@ -262,6 +286,9 @@ namespace ScreenManager
 		UnloadTexture(selectButton);
 
 		UnloadSound(selectSound);
+
+		UnloadMusicStream(menuMusic);
+		UnloadMusicStream(gameMusic);
 
 	}
 

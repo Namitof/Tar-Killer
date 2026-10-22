@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "AudioManager.h"
+
 #include "Objects/Player.h"
 #include "Objects/Bullet.h"
 #include "Objects/ColisionManager.h"
@@ -53,7 +55,7 @@ namespace Game
 
 	void PlayerInit(Texture2D playerTexture, int screenWidth, int screenHeight);
 
-	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, Sound selectSound);
+	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth);
 
 
 
@@ -122,7 +124,7 @@ namespace Game
 		Player::Init(player, playerSprite, screenWidth, screenHeight);
 	}
 
-	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, Sound selectSound)
+	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -205,7 +207,7 @@ namespace Game
 		//Hitbox pauseButton
 		hitbox = destination;
 
-		Button::Init(pauseButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
+		Button::Init(pauseButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 
 		//Lives
 		textPos.x = PAUSE_TEXT_OFFSET_X;
@@ -223,7 +225,7 @@ namespace Game
 
 	//ACA
 
-	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, Sound selectSound)
+	void Init(Texture2D gameBackground, int screenWidth, int screenHeight, Texture2D playerTexture, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture)
 	{
 		BackgroundInit(gameBackground, screenWidth, screenHeight);
 
@@ -231,7 +233,7 @@ namespace Game
 
 		gameFont = font;
 
-		HudInit(defaultButtonTexture, selectButtonTexture, screenWidth, selectSound);
+		HudInit(defaultButtonTexture, selectButtonTexture, screenWidth);
 
 		for (int i = 0; i < Bullet::MAX_BULLETS; i++)
 		{
@@ -262,7 +264,7 @@ namespace Game
 
 		//Pause
 		Button::Update(pauseButton, mousePos);
-		Button::PlaySound(pauseButton);
+		AudioManager::PlaySelectButtonSound(pauseButton);
 		if (!pauseButton.isPressed && pauseButton.wasPressed)
 		{
 			pauseButton.isPressed = false;

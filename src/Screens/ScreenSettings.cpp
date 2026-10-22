@@ -2,9 +2,10 @@
 
 #include <raylib.h>
 
+#include "AudioManager.h"
+
 #include "Utils/Sprite.h"
 #include "Utils/Text.h"
-
 #include "Objects/Button.h"
 
 namespace Settings
@@ -36,7 +37,7 @@ namespace Settings
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
 	{
@@ -82,7 +83,7 @@ namespace Settings
 		transparentBackground.height = static_cast<float>(screenHeight);
 	}
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -158,10 +159,10 @@ namespace Settings
 		//Hitbox playButton
 		hitbox = destination;
 
-		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
+		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
-	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
+	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		BackgroundInit(menuBackground, screenWidth, screenHeight);
 
@@ -170,7 +171,7 @@ namespace Settings
 		//font
 		menuFont = font;
 
-		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight, selectSound);
+		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
 	}
 
 	void Update(bool& backButtonPressed)
@@ -180,7 +181,7 @@ namespace Settings
 
 		//Back
 		Button::Update(backButton, mousePos);
-		Button::PlaySound(backButton);
+		AudioManager::PlaySelectButtonSound(backButton);
 		if (!backButton.isPressed && backButton.wasPressed)
 		{
 			backButton.isPressed = false;

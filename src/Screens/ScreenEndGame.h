@@ -6,7 +6,7 @@
 
 namespace EndGame
 {
-	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
+	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
 	void Update(bool& exitButtonPressed, bool& retryButtonPressed);
 

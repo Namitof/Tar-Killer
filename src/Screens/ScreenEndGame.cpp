@@ -2,9 +2,10 @@
 
 #include <raylib.h>
 
+#include "AudioManager.h"
+
 #include "Utils/Sprite.h"
 #include "Utils/Text.h"
-
 #include "Objects/Button.h"
 
 namespace EndGame
@@ -41,7 +42,7 @@ namespace EndGame
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
 	void TextInit(int screenWidth, int screenHeight);
 
@@ -61,7 +62,7 @@ namespace EndGame
 		transparentBackground.height = static_cast<float>(screenHeight);
 	}
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		//Componentes del struct sprite
 		Rectangle source;
@@ -138,7 +139,7 @@ namespace EndGame
 		//Hitbox exitButton
 		hitbox = destination;
 
-		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
+		Button::Init(exitButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 
 
 		//RETRY
@@ -191,7 +192,7 @@ namespace EndGame
 		//Hitbox retryButton
 		hitbox = destination;
 
-		Button::Init(retryButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite, selectSound);
+		Button::Init(retryButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
 	void TextInit(int screenWidth, int screenHeight)
@@ -209,14 +210,14 @@ namespace EndGame
 		Text::Init(scoreText, endFont, TITLE_TEXT_SIZE, "Score: 0", textPos, BUTTON_FONT_SPACING, WHITE);
 	}
 
-	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound)
+	void Init(Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
 	{
 		TransparentBackgroundInit(screenWidth, screenHeight);
 
 		//font
 		endFont = font;
 
-		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight, selectSound);
+		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
 
 		TextInit(screenWidth, screenHeight);
 	}
@@ -228,7 +229,7 @@ namespace EndGame
 
 		//Exit
 		Button::Update(exitButton, mousePos);
-		Button::PlaySound(exitButton);
+		AudioManager::PlaySelectButtonSound(exitButton);
 		if (!exitButton.isPressed && exitButton.wasPressed)
 		{
 			exitButton.isPressed = false;
@@ -242,7 +243,7 @@ namespace EndGame
 
 		//Retry
 		Button::Update(retryButton, mousePos);
-		Button::PlaySound(retryButton);
+		AudioManager::PlaySelectButtonSound(retryButton);
 		if (!retryButton.isPressed && retryButton.wasPressed)
 		{
 			retryButton.isPressed = false;

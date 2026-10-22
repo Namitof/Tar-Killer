@@ -7,15 +7,13 @@
 
 namespace Button
 {
-	void Init(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite, Sound selectSounds)
+	void Init(Button& currentButton, Color buttonColor, Color selectColor, Rectangle hitbox, Text::Text text, Sprite::Sprite defaultSprite, Sprite::Sprite selectSprite)
 	{
 		currentButton.isPressed = false;
 		currentButton.wasPressed = false;
 		currentButton.isMouseOnButton = false;
 
 		currentButton.soundIsPlaying = false;
-
-		currentButton.selectSound = selectSounds;
 
 		currentButton.currentColor = buttonColor;
 		currentButton.defaultColor = buttonColor;
@@ -78,16 +76,5 @@ namespace Button
 		Text::Draw(currentButton.text);
 	}
 
-	void PlaySound(Button& currentButton)
-	{
-		if (currentButton.isMouseOnButton)
-		{
-			if (!currentButton.soundIsPlaying)
-			{
-				currentButton.soundIsPlaying = true;
-				PlaySound(currentButton.selectSound);
-			}
-		}
-	}
 }
 
