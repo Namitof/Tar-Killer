@@ -66,7 +66,7 @@ namespace Enemy
 	void Update(Enemy& currentEnemy, float deltaTime)
 	{
 		currentEnemy.pos.x += currentEnemy.direction.x * currentEnemy.speed * deltaTime;
-		currentEnemy.pos.y += currentEnemy.direction.x * currentEnemy.speed * deltaTime;
+		currentEnemy.pos.y += currentEnemy.direction.y * currentEnemy.speed * deltaTime;
 	}
 
 	void Draw(Enemy currentEnemy)
