@@ -4,8 +4,6 @@
 
 Tar Killer is my own interpretation of the classic Asteroids arcade game
 
----
-
 ## Credits
 
 ### Game Developer
