@@ -81,6 +81,9 @@
     <ClCompile Include="src\Screens\ScreenEndGame.cpp">
       <Filter>Archivos de origen\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="src\Screens\AudioManager.cpp">
+      <Filter>Archivos de origen\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screens\ScreenManager.h">
@@ -126,6 +129,9 @@
       <Filter>Archivos de encabezado\Screens</Filter>
     </ClInclude>
     <ClInclude Include="src\Screens\ScreenEndGame.h">
+      <Filter>Archivos de encabezado\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screens\AudioManager.h">
       <Filter>Archivos de encabezado\Screens</Filter>
     </ClInclude>
   </ItemGroup>
