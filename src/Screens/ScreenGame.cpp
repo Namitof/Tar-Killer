@@ -281,8 +281,8 @@ namespace Game
 		// Disparo
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && !pauseButton.isMouseOnButton)
 		{
-
-			Bullet::AddBulletInPool(bulletPool, player.pos, player.direction);
+			AudioManager::PlayShootSound();
+			Bullet::AddBulletInPool(bulletPool, player.pos, player.direction, player.rotation);
 
 			/*
 			for (int i = 0; i < Bullet::MAX_BULLETS; i++)

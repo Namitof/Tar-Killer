@@ -2,6 +2,8 @@
 
 #include <raylib.h>
 
+#include "Utils/Sprite.h"
+
 namespace Bullet
 {
 	//Constantes
@@ -25,6 +27,7 @@ namespace Bullet
 		float count;
 		float countMaxValue;
 		Color tint;
+		Sprite::Sprite sprite;
 	};
 
 	void Init(Bullet& currentBullet);
@@ -37,6 +40,7 @@ namespace Bullet
 
 	void SetPos(Bullet& currentBullet, Vector2 pos);
 
-	void AddBulletInPool(Bullet bulletPool[MAX_BULLETS], Vector2 pos, Vector2 dir);
+	void AddBulletInPool(Bullet bulletPool[MAX_BULLETS], Vector2 pos, Vector2 dir, float angle);
 
+	void SetSprite(Texture2D spriteBullet);
 }

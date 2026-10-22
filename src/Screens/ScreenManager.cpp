@@ -14,6 +14,7 @@
 #include "ScreenEndGame.h"
 #include "AudioManager.h"
 #include "Objects/Enemy.h"
+#include "Objects/Bullet.h"
 
 namespace ScreenManager
 {
@@ -33,12 +34,15 @@ namespace ScreenManager
 	static Texture2D enemyMedium;
 	static Texture2D enemySmall;
 
+	static Texture2D bullet;
+
 	static Texture2D defaultButton;
 	static Texture2D selectButton;
 
 	static Font font;
 
 	static Sound selectSound;
+	static Sound shootSound;
 
 	static Music menuMusic;
 	static Music gameMusic;
@@ -85,17 +89,21 @@ namespace ScreenManager
 		enemyMedium = LoadTexture("res/enemy/MediumEnemy.png");
 		enemySmall = LoadTexture("res/enemy/SmallEnemy.png");
 
+		bullet = LoadTexture("res/bullet/bullet.png");
+
 		font = LoadFontEx("res/font/SquareAntiqua-Bold.ttf", FONT_SIZE, NULL, 0);
 
 		defaultButton = LoadTexture("res/buttons/DefaultButton.png");
 		selectButton = LoadTexture("res/buttons/SelectButton.png");
 
 		selectSound = LoadSound("res/sounds/select.wav");
+		shootSound = LoadSound("res/sounds/shoot.wav");
 
 		menuMusic = LoadMusicStream("res/musics/menu.wav");
 		gameMusic = LoadMusicStream("res/musics/gameplay.wav");
 
 		Enemy::SetAllSprites(enemyLarge, enemyMedium, enemySmall);
+		Bullet::SetSprite(bullet);
 
 		//Init a cada escena del juego
 		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -114,7 +122,7 @@ namespace ScreenManager
 
 
 
-		AudioManager::Init(selectSound, menuMusic, gameMusic);
+		AudioManager::Init(selectSound, shootSound, menuMusic, gameMusic);
 
 	}
 
@@ -307,12 +315,15 @@ namespace ScreenManager
 		UnloadTexture(enemyMedium);
 		UnloadTexture(enemySmall);
 
+		UnloadTexture(bullet);
+
 		UnloadFont(font);
 
 		UnloadTexture(defaultButton);
 		UnloadTexture(selectButton);
 
 		UnloadSound(selectSound);
+		UnloadSound(shootSound);
 
 		UnloadMusicStream(menuMusic);
 		UnloadMusicStream(gameMusic);
