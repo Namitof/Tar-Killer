@@ -39,7 +39,7 @@ namespace Pause
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
-	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight, Sound selectSound);
+	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
 	void TextInit(int screenWidth, int screenHeight);
 
