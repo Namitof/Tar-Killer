@@ -8,6 +8,7 @@ namespace AudioManager
 {
 	//Sonidos
 	static Sound select;
+	static Sound shoot;
 
 	//Musica
 	static Music menu;
@@ -26,9 +27,11 @@ namespace AudioManager
 	}
 
 
-	void Init(Sound selectSound, Music menuMusic, Music gameplayMusic)
+	void Init(Sound selectSound, Sound shootSound, Music menuMusic, Music gameplayMusic)
 	{
 		select = selectSound;
+		shoot = shootSound;
+
 		menu = menuMusic;
 		gameplay = gameplayMusic;
 	}
@@ -42,6 +45,14 @@ namespace AudioManager
 				currentButton.soundIsPlaying = true;
 				PlaySound(select);
 			}
+		}
+	}
+
+	void PlayShootSound()
+	{
+		if (!IsSoundPlaying(shoot))
+		{
+			PlaySound(shoot);
 		}
 	}
 
