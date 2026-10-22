@@ -18,6 +18,9 @@ namespace Settings
 
 	const float BACKGROUND_ALPHA_VALUE = 180.0f;
 
+	const float TITLE_FONT_SIZE = 50.0f;
+	const float CONTENT_FONT_SIZE = 40.0f;
+
 	//Background
 	static Sprite::Sprite background;
 
@@ -32,14 +35,22 @@ namespace Settings
 	//static Sprite::Sprite logo;
 
 	//Font
-	static Font menuFont;
+	static Font settingsFont;
 
+	//Textos
+	static Text::Text controlsTitle;
+	static Text::Text controlsContent1;
+	static Text::Text controlsContent2;
+	static Text::Text controlsContent3;
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight);
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
 	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
+
+	void TextInit(int screenHeight);
+
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
 	{
@@ -156,12 +167,44 @@ namespace Settings
 		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
 		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
 
-		Text::Init(text, menuFont, BUTTON_FONT_SIZE, "Back", textPos, BUTTON_FONT_SPACING, WHITE);
+		Text::Init(text, settingsFont, BUTTON_FONT_SIZE, "Back", textPos, BUTTON_FONT_SPACING, WHITE);
 
 		//Hitbox playButton
 		hitbox = destination;
 
 		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+	}
+
+	void TextInit(int screenHeight)
+	{
+		const int POS_X = 20;
+		const int OFFSET_POS_Y = 60;
+
+		Vector2 textPos;
+
+		//CONTROLS TITLE
+		textPos.x = POS_X;
+		textPos.y = static_cast<float>((screenHeight / 12) * 2);
+
+		Text::Init(controlsTitle, settingsFont, TITLE_FONT_SIZE, "CONTROLS", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//CONTROLS CONTENT 1
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(controlsContent1, settingsFont, CONTENT_FONT_SIZE, " - Mouse Movement: Aim the ship.", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//CONTROLS CONTENT 2
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(controlsContent2, settingsFont, CONTENT_FONT_SIZE, " - Left Mouse Button: Shoot enemies.", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//CONTROLS CONTENT 3
+		textPos.x = POS_X;
+		textPos.y += OFFSET_POS_Y;
+
+		Text::Init(controlsContent3, settingsFont, CONTENT_FONT_SIZE, " - Right Mouse Button: Accelerate your spaceship.", textPos, BUTTON_FONT_SPACING, WHITE);
 	}
 
 	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
@@ -171,7 +214,9 @@ namespace Settings
 		TransparentBackgroundInit(screenWidth, screenHeight);
 
 		//font
-		menuFont = font;
+		settingsFont = font;
+
+		TextInit(screenHeight);
 
 		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
 	}
@@ -205,5 +250,10 @@ namespace Settings
 		DrawRectangleRec(transparentBackground, transparent);
 
 		Button::Draw(backButton);
+
+		Text::Draw(controlsTitle);
+		Text::Draw(controlsContent1);
+		Text::Draw(controlsContent2);
+		Text::Draw(controlsContent3);
 	}
 }
