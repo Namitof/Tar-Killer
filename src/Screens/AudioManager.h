@@ -13,7 +13,7 @@ namespace AudioManager
 		Gameplay
 	};
 
-	void Init(Sound selectSound, Sound shootSound, Sound enemyHitSound, Sound gameOverSound, Sound teleportSound, Sound playerHitSound, Music menuMusic, Music gameplayMusic);
+	void Init(Sound selectSound, Sound shootSound, Sound enemyHitSound, Sound gameOverSound, Sound teleportSound, Sound playerHitSound, Sound moveSound, Music menuMusic, Music gameplayMusic);
 
 	void PlaySelectButtonSound(Button::Button& currentButton);
 
@@ -26,6 +26,8 @@ namespace AudioManager
 	void PlayTeleportSound();
 
 	void PlayPlayerHitSound();
+
+	void PlayPlayerMoveSound();
 
 	void PlayScreenMusic(ScreenMusic currentMusic);
 

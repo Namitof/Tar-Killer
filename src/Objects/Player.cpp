@@ -1,11 +1,12 @@
 #include "Player.h"
 
+#include <cmath>
+
 #include <raylib.h>
 #include <raymath.h>
 
-#include <cmath>
-
 #include "Utils/Sprite.h"
+#include "Screens/AudioManager.h"
 
 namespace Player
 {
@@ -114,6 +115,8 @@ namespace Player
 		// Aceleracion
 		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 		{
+			AudioManager::PlayPlayerMoveSound();
+
 			player.direction = Vector2Normalize(player.direction);
 
 			player.speed.x += (player.direction.x * player.maxSpeed) * deltaTime;

@@ -47,6 +47,7 @@ namespace ScreenManager
 	static Sound gameOverSound;
 	static Sound teleportSound;
 	static Sound playerHitSound;
+	static Sound playerMoveSound;
 
 	static Music menuMusic;
 	static Music gameMusic;
@@ -106,6 +107,7 @@ namespace ScreenManager
 		gameOverSound = LoadSound("res/sounds/gameover.wav");
 		teleportSound = LoadSound("res/sounds/teleport.wav");
 		playerHitSound = LoadSound("res/sounds/damaged.wav");
+		playerMoveSound = LoadSound("res/sounds/move.wav");
 
 		menuMusic = LoadMusicStream("res/musics/menu.wav");
 		gameMusic = LoadMusicStream("res/musics/gameplay.wav");
@@ -113,7 +115,7 @@ namespace ScreenManager
 		Enemy::SetAllSprites(enemyLarge, enemyMedium, enemySmall);
 		Bullet::SetSprite(bullet);
 
-		AudioManager::Init(selectSound, shootSound, enemyHitSound, gameOverSound, teleportSound, playerHitSound, menuMusic, gameMusic);
+		AudioManager::Init(selectSound, shootSound, enemyHitSound, gameOverSound, teleportSound, playerHitSound, playerMoveSound, menuMusic, gameMusic);
 
 		//Init a cada escena del juego
 		Menu::Init(menuBackground, logo, font, defaultButton, selectButton, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -334,6 +336,7 @@ namespace ScreenManager
 		UnloadSound(gameOverSound);
 		UnloadSound(teleportSound);
 		UnloadSound(playerHitSound);
+		UnloadSound(playerMoveSound);
 
 		UnloadMusicStream(menuMusic);
 		UnloadMusicStream(gameMusic);
