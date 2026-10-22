@@ -21,6 +21,8 @@ namespace EndGame
 	const float TITLE_TEXT_SIZE = 100.0f;
 	const float SCORE_TEXT_SIZE = 80.0f;
 
+	const float BACKGROUND_ALPHA_VALUE = 180.0f;
+
 	//Background
 	static Rectangle transparentBackground;
 	static Color transparent;
@@ -46,8 +48,9 @@ namespace EndGame
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight)
 	{
+
 		//Init a transparentBackground
-		transparent.a = static_cast<unsigned char>(100.0f);
+		transparent.a = static_cast<unsigned char>(BACKGROUND_ALPHA_VALUE);
 		transparent.b = static_cast<unsigned char>(0.0f);
 		transparent.g = static_cast<unsigned char>(0.0f);
 		transparent.r = static_cast<unsigned char>(0.0f);
