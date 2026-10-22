@@ -1,8 +1,8 @@
 #include "ScreenGame.h"
 
-#include <raylib.h>
-
 #include <string>
+
+#include <raylib.h>
 
 #include "AudioManager.h"
 
@@ -56,8 +56,6 @@ namespace Game
 	void PlayerInit(Texture2D playerTexture, int screenWidth, int screenHeight);
 
 	void HudInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth);
-
-
 
 
 	void BackgroundInit(Texture2D gameBackground, int screenWidth, int screenHeight)
@@ -296,20 +294,6 @@ namespace Game
 		{
 			AudioManager::PlayShootSound();
 			Bullet::AddBulletInPool(bulletPool, player.pos, player.direction, player.rotation);
-
-			/*
-			for (int i = 0; i < Bullet::MAX_BULLETS; i++)
-			{
-				if (!bulletPool[i].isActive)
-				{
-					Bullet::Init(bulletPool[i]);
-					bulletPool[i].isActive = true;
-					Bullet::SetPos(bulletPool[i], player.pos);
-					Bullet::SetDirection(bulletPool[i], player.direction);
-					break;
-				}
-			}
-			*/
 		}
 
 		// Actualizacion de las balas
