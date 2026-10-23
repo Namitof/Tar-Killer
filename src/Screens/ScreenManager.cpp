@@ -1,9 +1,9 @@
 #include "ScreenManager.h"
 
-#include <raylib.h>
-
 #include <cstdlib>
 #include <ctime>
+
+#include <raylib.h>
 
 #include "ScreenGame.h"
 #include "ScreenMenu.h"
@@ -51,8 +51,6 @@ namespace ScreenManager
 
 	static Music menuMusic;
 	static Music gameMusic;
-	
-	static float masterVolume;
 
 	static int playerMaxScore;
 	static int playerCurrentScore;
@@ -75,8 +73,6 @@ namespace ScreenManager
 		InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tar Killer");
 
 		currentScreen = ScreenOptions::Menu;
-		
-		masterVolume = 100.0f;
 
 		playerMaxScore = -1;
 		playerCurrentScore = -1;

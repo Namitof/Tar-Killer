@@ -15,6 +15,10 @@ namespace AudioManager
 
 	void Init(Sound selectSound, Sound shootSound, Sound enemyHitSound, Sound gameOverSound, Sound teleportSound, Sound playerHitSound, Sound moveSound, Music menuMusic, Music gameplayMusic);
 
+	void ReduceVolume();
+
+	void IncreaseVolume();
+
 	void PlaySelectButtonSound(Button::Button& currentButton);
 
 	void PlayShootSound();

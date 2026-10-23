@@ -21,6 +21,8 @@ namespace Settings
 	const float TITLE_FONT_SIZE = 50.0f;
 	const float CONTENT_FONT_SIZE = 40.0f;
 
+	const float VOLUMEN_TEXT_OFFSET_X = 100.0f;
+
 	//Background
 	static Sprite::Sprite background;
 
@@ -29,10 +31,10 @@ namespace Settings
 
 	//Botones
 	static Button::Button backButton;
-	//Agregar botones de sonido
 
-	//Nave
-	//static Sprite::Sprite logo;
+	//Agregar botones de sonido
+	static Button::Button reduceButton;
+	static Button::Button increaseButton;
 
 	//Font
 	static Font settingsFont;
@@ -43,13 +45,15 @@ namespace Settings
 	static Text::Text controlsContent2;
 	static Text::Text controlsContent3;
 
+	static Text::Text volumenText;
+
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight);
 
 	void TransparentBackgroundInit(int screenWidth, int screenHeight);
 
 	void ButtonsInit(Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight);
 
-	void TextInit(int screenHeight);
+	void TextInit(int screenWidth, int screenHeight);
 
 
 	void BackgroundInit(Texture2D menuBackground, int screenWidth, int screenHeight)
@@ -173,9 +177,122 @@ namespace Settings
 		hitbox = destination;
 
 		Button::Init(backButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+
+		buttonPos.x = static_cast<float>((screenWidth / 12) * 2);
+		buttonPos.x = static_cast<float>((screenWidth / 8) * 1);
+		buttonPos.y = static_cast<float>((screenHeight / 12) * 7.8f);
+
+		//REDUCE
+		//Default Sprite backButton
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(defaultButtonTexture.width);
+		source.height = static_cast<float>(defaultButtonTexture.height);
+
+		destination.x = buttonPos.x;
+		destination.y = buttonPos.y;
+		destination.width = Button::BUTTON_WIDTH;
+		destination.height = Button::BUTTON_HEIGHT;
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(defaultSprite, defaultButtonTexture, source, destination, pivot, rotation, tint);
+
+		//Select Sprite backButton
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(selectButtonTexture.width);
+		source.height = static_cast<float>(selectButtonTexture.height);
+
+		destination.x = buttonPos.x;
+		destination.y = buttonPos.y;
+		destination.width = Button::BUTTON_WIDTH;
+		destination.height = Button::BUTTON_HEIGHT;
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
+
+		//Text backButton
+		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, settingsFont, BUTTON_FONT_SIZE, " - ", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//Hitbox playButton
+		hitbox = destination;
+
+		Button::Init(reduceButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
+
+
+		buttonPos.x = static_cast<float>((screenWidth / 12) * 7);
+		buttonPos.x = static_cast<float>((screenWidth / 8) * 5);
+		buttonPos.y = static_cast<float>((screenHeight / 12) * 7.8f);
+
+		//INCREASE
+		//Default Sprite backButton
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(defaultButtonTexture.width);
+		source.height = static_cast<float>(defaultButtonTexture.height);
+
+		destination.x = buttonPos.x;
+		destination.y = buttonPos.y;
+		destination.width = Button::BUTTON_WIDTH;
+		destination.height = Button::BUTTON_HEIGHT;
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(defaultSprite, defaultButtonTexture, source, destination, pivot, rotation, tint);
+
+		//Select Sprite backButton
+		source.x = 0.0f;
+		source.y = 0.0f;
+		source.width = static_cast<float>(selectButtonTexture.width);
+		source.height = static_cast<float>(selectButtonTexture.height);
+
+		destination.x = buttonPos.x;
+		destination.y = buttonPos.y;
+		destination.width = Button::BUTTON_WIDTH;
+		destination.height = Button::BUTTON_HEIGHT;
+
+		pivot.x = 0.0f;
+		pivot.y = 0.0f;
+
+		rotation = 0;
+
+		tint = WHITE;
+
+		Sprite::Init(selectSprite, selectButtonTexture, source, destination, pivot, rotation, tint);
+
+		//Text backButton
+		textPos.x = destination.x + BACK_TEXT_OFFSET_X;
+		textPos.y = destination.y + BUTTONS_TEXT_OFFSET_Y;
+
+		Text::Init(text, settingsFont, BUTTON_FONT_SIZE, " + ", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		//Hitbox playButton
+		hitbox = destination;
+
+		Button::Init(increaseButton, defaultColor, selectColor, hitbox, text, defaultSprite, selectSprite);
 	}
 
-	void TextInit(int screenHeight)
+	void TextInit(int screenWidth, int screenHeight)
 	{
 		const int POS_X = 20;
 		const int OFFSET_POS_Y = 60;
@@ -205,6 +322,11 @@ namespace Settings
 		textPos.y += OFFSET_POS_Y;
 
 		Text::Init(controlsContent3, settingsFont, CONTENT_FONT_SIZE, " - Right Mouse Button: Accelerate your spaceship.", textPos, BUTTON_FONT_SPACING, WHITE);
+
+		textPos.x = static_cast<float>((screenWidth / 2) - VOLUMEN_TEXT_OFFSET_X);
+		textPos.y = static_cast<float>((screenHeight / 12) * 7);
+
+		Text::Init(volumenText, settingsFont, TITLE_FONT_SIZE, "Volumen", textPos, BUTTON_FONT_SPACING, WHITE);
 	}
 
 	void Init(Texture2D menuBackground, Font font, Texture2D defaultButtonTexture, Texture2D selectButtonTexture, int screenWidth, int screenHeight)
@@ -216,7 +338,7 @@ namespace Settings
 		//font
 		settingsFont = font;
 
-		TextInit(screenHeight);
+		TextInit(screenWidth, screenHeight);
 
 		ButtonsInit(defaultButtonTexture, selectButtonTexture, screenWidth, screenHeight);
 	}
@@ -240,6 +362,25 @@ namespace Settings
 			backButtonPressed = false;
 		}
 
+		//Reduce
+		Button::Update(reduceButton, mousePos);
+		AudioManager::PlaySelectButtonSound(reduceButton);
+		if (!reduceButton.isPressed && reduceButton.wasPressed)
+		{
+			reduceButton.isPressed = false;
+			reduceButton.wasPressed = false;
+			AudioManager::ReduceVolume();
+		}
+
+		//Increase
+		Button::Update(increaseButton, mousePos);
+		AudioManager::PlaySelectButtonSound(increaseButton);
+		if (!increaseButton.isPressed && increaseButton.wasPressed)
+		{
+			increaseButton.isPressed = false;
+			increaseButton.wasPressed = false;
+			AudioManager::IncreaseVolume();
+		}
 	}
 
 	void Draw()
@@ -250,6 +391,10 @@ namespace Settings
 		DrawRectangleRec(transparentBackground, transparent);
 
 		Button::Draw(backButton);
+		Button::Draw(reduceButton);
+		Button::Draw(increaseButton);
+
+		Text::Draw(volumenText);
 
 		Text::Draw(controlsTitle);
 		Text::Draw(controlsContent1);

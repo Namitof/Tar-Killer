@@ -19,6 +19,8 @@ namespace AudioManager
 	static Music menu;
 	static Music gameplay;
 
+	static float masterVolume;
+
 	void PlayMusic(Music currentMusic);
 
 
@@ -44,6 +46,30 @@ namespace AudioManager
 
 		menu = menuMusic;
 		gameplay = gameplayMusic;
+
+		masterVolume = 1.0f;
+		SetMasterVolume(masterVolume);
+	}
+
+	void ReduceVolume()
+	{
+		masterVolume -= 0.1f;
+		if (masterVolume <= 0.0f)
+		{
+			masterVolume = 0.0f;
+		}
+		SetMasterVolume(masterVolume);
+
+	}
+
+	void IncreaseVolume()
+	{
+		masterVolume += 0.1f;
+		if (masterVolume >= 1.0f)
+		{
+			masterVolume = 1.0f;
+		}
+		SetMasterVolume(masterVolume);
 	}
 
 	void PlaySelectButtonSound(Button::Button& currentButton)

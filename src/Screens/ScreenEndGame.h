@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include <raylib.h>
 
 namespace EndGame
