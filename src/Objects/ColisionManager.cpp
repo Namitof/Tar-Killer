@@ -140,7 +140,7 @@ namespace ColisionManager
 								{
 								case Enemy::EnemySize::Large:
 
-									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Medium, spawnPos, Enemy::GenerateRandomDirection()/*{ 1.0f, 1.0f }*/);
+									Enemy::AddEnemyInPool(enemys, Enemy::EnemySize::Medium, spawnPos, Enemy::GenerateRandomDirection());
 
 									quantity++;
 
@@ -200,7 +200,5 @@ namespace ColisionManager
 				}
 			}
 		}
-		
-
 	}
 }

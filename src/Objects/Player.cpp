@@ -67,34 +67,35 @@ namespace Player
 
 		angle *= RAD2DEG;
 
-		//if (posMouse.x > player.pos.x && posMouse.y < /*>*/ player.pos.y)
+		//if (posMouse.x > player.pos.x && posMouse.y < player.pos.y)
 		//{
 		//	//Cuadrante 1
 		//	angle += 0;
 		//}
-		//else if (posMouse.x < player.pos.x && posMouse.y < /*>*/ player.pos.y)
+		//else if (posMouse.x < player.pos.x && posMouse.y < player.pos.y)
 		//{
 		//	//Cuadrante 2
 		//	angle += 180;
 		//}
-		//else if (posMouse.x < player.pos.x && posMouse.y > /*<*/ player.pos.y)
+		//else if (posMouse.x < player.pos.x && posMouse.y > player.pos.y)
 		//{
 		//	//Cuadrante 3
 		//	angle += 180;
 		//}
-		//else if (posMouse.x > player.pos.x && posMouse.y > /*<*/ player.pos.y)
+		//else if (posMouse.x > player.pos.x && posMouse.y > player.pos.y)
 		//{
 		//	//Cuadrante 4
 		//	angle += 360;
 		//}
 
-		if ((posMouse.x < player.pos.x && posMouse.y < /*>*/ player.pos.y) || (posMouse.x < player.pos.x && posMouse.y > /*<*/ player.pos.y))
+		if ((posMouse.x < player.pos.x && posMouse.y < player.pos.y) || (posMouse.x < player.pos.x && posMouse.y > player.pos.y))
 		{
 			//Cuadrante 2 o 3
 			angle += 180;
 		}
-		else if (posMouse.x > player.pos.x && posMouse.y > /*<*/ player.pos.y)
+		else if (posMouse.x > player.pos.x && posMouse.y >  player.pos.y)
 		{
+			//Cuadrante 4
 			angle += 360;
 		}
 
